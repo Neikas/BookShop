@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('/',[ App\Http\Controllers\BookController::class, 'index'  ]);
 
 Route::group(['midleware' => 'auth ', 'prefix' => 'BookStore'], function(){
-    Route::resource('books', BookController::class);
+
 });
 
 
@@ -27,5 +29,3 @@ Route::group(['midleware' => 'auth ', 'prefix' => 'BookStore'], function(){
 Auth::routes();
 
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
