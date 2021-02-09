@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -18,30 +19,36 @@ class BookController extends Controller
 
         return view('main')->with('books', $books);
     }
-
-    /**
+        /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function addBook()
+    public function create()
     {
         return view('book.addBook');
     }
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\CreateBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CreateBookRequest $request)
+    {   
+        //dd($request->all());
+        //Store picture
+        Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'gender' => $request->gender,
+            'description' => $request->description,
+            'user_id' => auth()->user()->id,
+            'price' => $request->price,
+            'picture' => $request->picture,
+
+        ]);
+        return redirect()->route('addBookView')->with('message', 'Success');
     }
 
     /**

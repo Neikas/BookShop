@@ -28,7 +28,7 @@ class BookFactory extends Factory
             'description' => $this->faker->text,
             'price' => 12.99,
             'discount' => 0,
-            'picture_url' => 10,
+            'picture' => 'basic.jpg',
 
         ];
     }
