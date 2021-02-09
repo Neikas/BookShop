@@ -12,4 +12,5 @@ class Review extends Model
         'stars', 'commnet' ,'user_id', 'book_id'
      ];
 
+
 }

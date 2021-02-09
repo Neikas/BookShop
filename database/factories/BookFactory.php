@@ -29,6 +29,7 @@ class BookFactory extends Factory
             'price' => 12.99,
             'discount' => 0,
             'picture_url' => 10,
+
         ];
     }
 }
