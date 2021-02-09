@@ -24,6 +24,10 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function addBook()
+    {
+        return view('book.addBook');
+    }
     public function create()
     {
         //

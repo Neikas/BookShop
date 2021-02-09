@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->double('price');
-            $table->string('picture_url');
+            $table->file('picture');
             $table->unsignedBigInteger('discount')->default(0);
             $table->timestamps();
         });
