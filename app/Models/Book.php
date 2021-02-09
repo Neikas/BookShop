@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Book extends Model
 {
@@ -11,4 +12,17 @@ class Book extends Model
     protected $fillable = [
        'review_id', 'user_id' ,'title', 'description','price','picture_url', 'discount'
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function genders()
+    {
+        return $this->hasMany(Genders::class);
+    }
+    public function authors()
+    {
+        return $this->hasMany(Author::class);
+    }
 }

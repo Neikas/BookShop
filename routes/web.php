@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[ App\Http\Controllers\BookController::class, 'index'  ]);
+Route::get('/Book/{id}',[ App\Http\Controllers\BookController::class, 'bookById'  ])->name('SingleBook');
 
 Route::group(['midleware' => 'auth ', 'prefix' => 'BookStore'], function(){
 

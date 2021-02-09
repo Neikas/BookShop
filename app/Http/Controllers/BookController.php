@@ -84,4 +84,17 @@ class BookController extends Controller
     {
         //
     }
+        /**
+     * Display book my id from list
+     *
+     * @param  \App\Models\Book  $book
+     * @param  $id 
+     * @return \Illuminate\Http\Response
+     */
+
+    public function bookById(Book $book,  $id )
+    {   
+        $book = $book->findOrFail($id);
+        return view('book.singleBook')->with('book', $book);
+    }
 }
