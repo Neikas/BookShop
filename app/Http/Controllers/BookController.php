@@ -14,8 +14,8 @@ class BookController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth', ['except' => array('index', 'show') ]);
+     
     }
     /**
      * Display a listing of the resource.

@@ -37,8 +37,22 @@
                 </div>
             </div>  
         </div>
-        <div class="row">
+        <div class="row mt-5">
+                @include('book.bookReviews')
+        </div>
+        <div class="row mt-5">
+            @guest
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            Log in or register to leave review!
+                        </div>
+                    </div>
+            @else    
+                @include('book.reviewForm')
+            @endguest
 
         </div>
     </div>
+
+
 @endsection

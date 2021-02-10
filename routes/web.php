@@ -16,15 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-//
-Route::group(['middleware' => 'auth'], function(){
-    Route::resource('/book', App\Http\Controllers\BookController::class);
 
-    Route::get('/book/myBooks/{id}', [App\Http\Controllers\BookController::class, 'getAllUserBooks'])->name('userBook');
+//book
+
+Route::resource('/book', App\Http\Controllers\BookController::class);
+Route::get('/book/myBooks/{id}', [App\Http\Controllers\BookController::class, 'getAllUserBooks'])->name('userBook');
+
+Route::post('/review/store/{book_id}/{user_id}', [App\Http\Controllers\ReviewController::class, 'store' ])->name('review.store');
+
+Route::get('/', function(){
+    return redirect()->route('book.index');
 });
-
-
-
-
-
-

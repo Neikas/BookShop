@@ -14,7 +14,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -33,9 +33,19 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $book_id, $user_id)
     {
-        //
+        if(  auth()->user()->id == $user_id ){
+            Review::create([
+                'author' => auth()->user()->name,
+                'book_id' => $book_id,
+                'stars' => $request->stars,
+                'comment' => $request->comment,
+            ]);
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
