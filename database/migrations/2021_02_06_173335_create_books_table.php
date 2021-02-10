@@ -21,6 +21,7 @@ class CreateBooksTable extends Migration
             $table->string('description');
             $table->double('price');
             $table->string('picture');
+            $table->boolean('approved')->default(false);
             $table->unsignedBigInteger('discount')->default(0);
             $table->timestamps();
         });

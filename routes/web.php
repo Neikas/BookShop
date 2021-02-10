@@ -19,6 +19,8 @@ Auth::routes();
 //
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('/book', App\Http\Controllers\BookController::class);
+
+    Route::get('/book/myBooks/{id}', [App\Http\Controllers\BookController::class, 'getAllUserBooks'])->name('userBook');
 });
 
 

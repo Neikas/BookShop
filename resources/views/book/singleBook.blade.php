@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <img src="https://via.placeholder.com/115x135" class="card-img-top" alt="...">
+                <img src="{{ asset( $book->picture) }}" class="card-img-top" alt="...">
             </div>
             <div class="col-8">
                 <div class="card">
@@ -26,7 +26,11 @@
                         </div>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">{{ $book->authors[0]->author}}</h5>
+                      <h5 class="card-title">
+                          @foreach ($book->authors as $author)
+                              {{ $author->author . ' ' }}
+                          @endforeach
+                    </h5>
                       <p class="card-text">{{ $book->description}}</p>
                       <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>

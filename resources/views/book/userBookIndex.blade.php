@@ -10,8 +10,9 @@
                     {{ $author->author . ' ' }}
                 @endforeach
             </h5>
-            <h4 class="card-title"> {{ $book->price }}</h4>
-            <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary">Go somewhere</a>
+            <h4 class="card-title"> {{ $book->price }} 	&euro;</h4>
+            <h4 class="card-title"> Status:@if($book->approved) Aprroved @else Dissaproved @endif </h4>
+                <a href="{{ route('book.edit', [ $book ]) }}" class="btn btn-primary">Edit book </a>
             </div>
         </div>
         @endforeach

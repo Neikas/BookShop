@@ -19,7 +19,7 @@ class Book extends Model
     }
     public function genders()
     {
-        return $this->belongsToMany(Genders::class);
+        return $this->belongsToMany(Gender::class);
     }
     public function authors()
     {

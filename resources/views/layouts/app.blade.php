@@ -62,8 +62,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('userBook', ['id'=> Auth::user()->id] ) }}">
+                                        {{ __('My books') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('book.create', ) }}">
-                                        {{ __('Pridėti knygą') }}
+                                        {{ __('Add book') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

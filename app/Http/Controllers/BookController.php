@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateBookRequest;
-use App\Models\Author;
 use App\Models\Book;
+use App\Models\Author;
 use App\Models\Gender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\CreateBookRequest;
 
 class BookController extends Controller
 {   
@@ -23,7 +24,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::simplePaginate(25);
+        $books = Book::where('approved', '=', true )->paginate(25);
 
         return view('main')->with('books', $books);
     }
@@ -50,6 +51,8 @@ class BookController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename =time().'.'.$extension;
             $file->move('uploads/booksCover/', $filename);
+        }else {
+            $filename = 'default.png';
         }
 
         $book = Book::create([
@@ -83,7 +86,17 @@ class BookController extends Controller
         }
             return redirect()->route('book.create')->with('message', 'Success');
     }
+    public function getAllUserBooks($userId)
+    {
+        if( auth()->user()->id == $userId)
+        {
+            $books = Book::where('user_id', '=', $userId )->paginate(15);
 
+            return view('book.manageBook')->with('books', $books);
+
+        }
+        return redirect()->route('book.index')->with('message', 'No books!');
+    }
     /**
      * Display the specified resource.
      *
@@ -103,7 +116,14 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+
+        $authors = $book->authors()->get()->implode('author', ',');
+        $genders = $book->genders()->get()->implode('gender', ',');
+
+        $book->authors = $authors;
+        $book->genders = $genders;
+
+        return view('book.editUserBook')->with('book', $book);
     }
 
     /**
@@ -113,9 +133,54 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(CreateBookRequest $request, Book $book)
     {
-        //
+        if($request->hasFile('picture'))
+        {
+            if(File::exists(asset( $book->picture))) {
+                File::delete(asset( $book->picture));
+            }
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension();
+            $filename =time().'.'.$extension;
+            $file->move('uploads/booksCover/', $filename);
+
+        }
+
+        $authors = explode(',',$request->author);
+        $genders = explode(',',$request->gender);      
+
+        $book->authors()->detach();
+        $book->genders()->detach();
+
+        foreach($authors as $author)
+        {    
+            $authorCheck = Author::where('author','=', $author)->first();
+            
+            if ($authorCheck == null)
+            {   
+                $authorCheck = Author::create(['author'=> $author]);
+            }
+            $authorCheck->books()->attach($book);
+        }
+        foreach($genders as $gender)
+        {
+            $genderCheck = Gender::where('gender','=', $gender)->first();
+            if ($genderCheck == null)
+            {
+                $genderCheck =  Gender::create(['gender'=> $gender]);
+            }
+            $genderCheck->books()->attach($book);
+        }
+      
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->price = $request->price;
+        $book->picture ='uploads/booksCover/'. $filename; 
+        $book->approved = false;
+        $book->save();
+
+        return redirect()->route('book.edit', $book->id);
     }
 
     /**
