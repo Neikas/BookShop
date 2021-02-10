@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Gender;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CreateBookRequest;
@@ -105,6 +106,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+            $book->reviews = Review::where('book_id','=',$book->id)->paginate(1);
+
         return view('book.singleBook')->with('book', $book);
     }
 

@@ -1,5 +1,5 @@
 <h4 class="card-title">Latest Rviews</h4>
-@foreach ($book->reviews as $review)
+@foreach ( $book->reviews as $review)
     <div class="col-lg-12">
         <div class="card">
             <div class="comment-widgets">
@@ -14,5 +14,7 @@
             </div> <!-- Card -->
         </div>
     </div>
+    
 @endforeach
+
 

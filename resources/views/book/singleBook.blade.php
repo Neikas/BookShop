@@ -39,6 +39,11 @@
         </div>
         <div class="row mt-5">
                 @include('book.bookReviews')
+
+                
+        </div>
+        <div class="row mt-5">
+
         </div>
         <div class="row mt-5">
             @guest
@@ -47,8 +52,12 @@
                             Log in or register to leave review!
                         </div>
                     </div>
-            @else    
+            @else 
                 @include('book.reviewForm')
+                <div class="col-12">
+                    {{ $book->reviews->links() }}
+                </div>
+
             @endguest
 
         </div>
