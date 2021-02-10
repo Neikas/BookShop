@@ -16,13 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
-Route::get('/',[ App\Http\Controllers\BookController::class, 'index'  ]);
-Route::get('/Book/{id}',[ App\Http\Controllers\BookController::class, 'bookById'  ])->name('SingleBook');
-
-Route::group(['middleware' => 'auth', 'prefix' => 'BookStore'], function(){
-    Route::get('/addBook', [ App\Http\Controllers\BookController::class, 'create'])->name('addBookView');
-    Route::post('/addBook', [ App\Http\Controllers\BookController::class, 'store'])->name('bookCreate');
+//
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('/book', App\Http\Controllers\BookController::class);
 });
 
 

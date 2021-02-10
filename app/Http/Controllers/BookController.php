@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBookRequest;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
-{
+{   
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except('show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,20 +43,45 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateBookRequest $request)
-    {   
-        //dd($request->all());
-        //Store picture
-        Book::create([
+    {  
+        if($request->hasFile('picture'))
+        {
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension();
+            $filename =time().'.'.$extension;
+            $file->move('uploads/booksCover/', $filename);
+        }
+
+        $book = Book::create([
             'title' => $request->title,
-            'author' => $request->author,
-            'gender' => $request->gender,
             'description' => $request->description,
             'user_id' => auth()->user()->id,
             'price' => $request->price,
-            'picture' => $request->picture,
-
+            'picture' => 'uploads/booksCover/'.$filename,
         ]);
-        return redirect()->route('addBookView')->with('message', 'Success');
+
+        $authors = explode(',',$request->author);
+        $genders = explode(',',$request->gender);
+
+        foreach($authors as $author)
+        {
+            $authorCheck = Author::where('author','=', $author)->first();
+            if ($authorCheck === null)
+            {   
+                $authorCheck = Author::create(['author'=> $author]);
+            }
+            $authorCheck->books()->attach($book);
+        }
+        foreach($genders as $gender)
+        {
+            $genderCheck = Gender::where('gender','=', $gender)->first();
+            if ($genderCheck === null)
+            {
+                $genderCheck =  Gender::create(['gender'=> $gender]);
+            }
+            $genderCheck->books()->attach($book);
+        }
+            return redirect()->route('book.create')->with('message', 'Success');
     }
 
     /**
@@ -59,7 +92,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('book.singleBook')->with('book', $book);
     }
 
     /**
@@ -102,10 +135,4 @@ class BookController extends Controller
      * @param  $id 
      * @return \Illuminate\Http\Response
      */
-
-    public function bookById(Book $book,  $id )
-    {   
-        $book = $book->findOrFail($id);
-        return view('book.singleBook')->with('book', $book);
-    }
 }

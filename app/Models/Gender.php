@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Gender extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'book_id', 'gender' ,
-     ];
 
+    protected $fillable = [
+        'gender' ,
+     ];
+     public function books()
+     {
+         return $this->belongsToMany(Book::class);
+     }
 }
