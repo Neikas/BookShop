@@ -191,7 +191,11 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->authors()->detach();
+        $book->genders()->detach();
+        $book->delete();
+
+        return redirect()->route('book.show');
     }
         /**
      * Display book my id from list
