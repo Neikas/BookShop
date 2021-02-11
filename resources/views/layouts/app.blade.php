@@ -40,14 +40,16 @@
 
                     </ul>
 
+
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
                             @endif
                             
                             @if (Route::has('register'))
@@ -62,6 +64,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (auth()->user()->admin)
+                                        <a class="dropdown-item" href="{{ route('report.index', ['id'=> Auth::user()->id] ) }}">
+                                            {{ __('All reports') }}
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('admin.book.index') }}">
+                                            {{ __('Books for approval') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('userBook', ['id'=> Auth::user()->id] ) }}">
                                         {{ __('My books') }}
                                     </a>

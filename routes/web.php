@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,8 @@ Route::post('/review/store/{book_id}/{user_id}', [App\Http\Controllers\ReviewCon
 Route::post('/review/index/{book_id}', [App\Http\Controllers\ReviewController::class, 'index' ])->name('review.index');
 //admin
 Route::group(['middleware' => 'admin'], function (){
-    
+    Route::get('/admin/book',[ App\Http\Controllers\BookController::class , 'indexAdminBookUnapproved'])->name('admin.book.index');
+    Route::get('/admin/book/{book}/{status}',[ App\Http\Controllers\BookController::class , 'bookChangeApproved'])->name('admin.book.change.approved');
 });
 //reports
 Route::get('/report/index', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');

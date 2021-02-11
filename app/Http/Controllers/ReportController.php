@@ -21,7 +21,13 @@ class ReportController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $reports = Report::where('user_id', '=', $user_id)->paginate(20);
+        if(auth()->user()->admin)
+        {
+            $reports = Report::paginate(15);
+            
+        }else{
+            $reports = Report::where('user_id', '=', $user_id)->paginate(20);
+        }
         return view('book.reports.index')->with(['reports'=> $reports , ]);
     }
 

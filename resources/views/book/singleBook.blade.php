@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <img src="{{ asset( $book->picture) }}" class="card-img-top" alt="...">
+                <img src="{{ asset( $book->picture) }}" style="width:100%; height:450px;" class="card-img-top" alt="...">
             </div>
             <div class="col-8">
                 <div class="card">
@@ -23,6 +23,7 @@
                                     <div class="content text-center">
                                         <div class="ratings"> <span class="product-rating">{{ $book->reviews[0]->stars ?? 'No rating'}}</span><span>/5</span>
                                             <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                                
                                             <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
                                         </div>
                                     </div>
@@ -31,14 +32,13 @@
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" style="height: 350px">
                       <h5 class="card-title">
                           @foreach ($book->authors as $author)
                               {{ $author->author . ' ' }}
                           @endforeach
                     </h5>
                       <p class="card-text">{{ $book->description}}</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>  

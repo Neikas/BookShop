@@ -18,14 +18,39 @@ class BookController extends Controller
         $this->middleware('auth', ['except' => array('index', 'show') ]);
      
     }
+
+
+
+    public function indexAdminBookUnapproved()
+    {
+            $books = Book::paginate(20);
+
+        return view('book.adminBookIndex')->with('books', $books);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function bookChangeApproved(Book $book, $status)
+    {
+        
+        if($status)
+        {
+            $book->approved = false;
+        }else{
+            $book->approved = true;
+        }
+        $book->save();
+        //dd($book);
+
+        return redirect()->route('admin.book.index');
+    }
     public function index()
     {
-        $books = Book::where('approved', '=', true )->paginate(25);
+
+            $books = Book::where('approved', '=', true )->paginate(25);
+
 
         return view('main')->with('books', $books);
     }
@@ -148,6 +173,8 @@ class BookController extends Controller
             $filename =time().'.'.$extension;
             $file->move('uploads/booksCover/', $filename);
 
+        }else {
+            $filename = str_replace('uploads/booksCover/', '', $book->picture);
         }
 
         $authors = explode(',',$request->author);

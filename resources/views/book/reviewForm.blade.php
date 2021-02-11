@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="col-12 justify-content-center">
     <div class="card">
         <div class="card-body text-center">
             <h4 class="card-title">Leave Rview</h4>
@@ -49,12 +49,17 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="message">Your message</label>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                         <textarea class="form-control" id="message" name="comment" placeholder="Please enter your feedback here..." rows="5"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn">Submit</button>
+                      <div class="d-flex justify-content-center">
+                        <div class="col-6">
+                          <button type="submit" class="btn-danger btn-block">Submit</button>
+                        </div>
+                      
+                      </div>
                     </div>
                 </form>
         </div> <!-- Card -->

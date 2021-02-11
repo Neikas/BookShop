@@ -10,7 +10,7 @@ class Book extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'review_id', 'user_id', 'report_id' ,'title', 'description','price', 'discount', 'author_id', 'picture'
+       'review_id', 'user_id', 'report_id' ,'title', 'description','price', 'discount', 'author_id', 'picture','approved',
     ];
 
     public function reviews()
