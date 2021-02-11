@@ -9,16 +9,40 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CreateBookRequest;
+use Illuminate\Support\Str;
+use App\Support\Collection;
 
 class BookController extends Controller
 {   
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => array('index', 'show') ]);
+        $this->middleware('auth', ['except' => array('index', 'show','search') ]);
      
     }
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $bookFromTitle = Book::query()
+        ->where('title', 'LIKE', "%{$search}%")
+        ->get('id');
 
+        $books = Book::all();
+        $authorBookId =[];
+        foreach($books as $book){
+            foreach($book->authors as $author){
+                if(Str::contains($author->author, $search)){
+                    array_push($authorBookId , $book->id);
+                }
+            }
+        }
+        $booksFromAuthors = $book->find($authorBookId);
+
+        $books = $bookFromTitle->merge($booksFromAuthors);
+        $books = $books->where('approved', '=', true );
+
+        return view('book.search')->with('books', $books);
+    }
 
 
     public function indexAdminBookUnapproved()
@@ -34,7 +58,6 @@ class BookController extends Controller
      */
     public function bookChangeApproved(Book $book, $status)
     {
-        
         if($status)
         {
             $book->approved = false;
@@ -42,15 +65,12 @@ class BookController extends Controller
             $book->approved = true;
         }
         $book->save();
-        //dd($book);
 
         return redirect()->route('admin.book.index');
     }
     public function index()
     {
-
             $books = Book::where('approved', '=', true )->paginate(25);
-
 
         return view('main')->with('books', $books);
     }

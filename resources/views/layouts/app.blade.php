@@ -27,25 +27,44 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                    <!-- Left Side Of Navbar Search-->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
 
+                                <form method="get" action="{{ route('books.search') }}" style="width: 400px">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="input-group pr-1 rounded">
+                                                    <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                                    aria-describedby="search-addon" />
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-danger" id="search-addon">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                        </li>
                     </ul>
-
 
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+
                         @guest
+
                             @if (Route::has('login'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
