@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'birth_date',
+        'admin',
     ];
 
     /**
@@ -53,5 +54,9 @@ class User extends Authenticatable
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+    public function reportMessage()
+    {
+        return  $this->hasMany(Report::class);
     }
 }

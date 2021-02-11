@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Models\Book;
+use App\Models\ReportMessage;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -21,7 +22,7 @@ class ReportController extends Controller
     {
         $user_id = auth()->user()->id;
         $reports = Report::where('user_id', '=', $user_id)->paginate(20);
-        return view('book.reports.index')->with('reports', $reports);
+        return view('book.reports.index')->with(['reports'=> $reports , ]);
     }
 
     /**
@@ -43,7 +44,6 @@ class ReportController extends Controller
     public function store(Request $request, $book_id)
     {
         $book = Book::where('id', '=', $book_id)->firstOrFail();
-
         if($book == null )
         {
             return abort(404);
@@ -52,16 +52,47 @@ class ReportController extends Controller
             $request->validate([
                 'report_text' => 'required',
             ]);
-            Report::create([
+            $report = Report::create([
                 'book_id' => $book_id,
                 'user_id' => auth()->user()->id,
                 'report_text' => $request->report_text,
     
             ]);
+            $book->report_id = $report->id;
+            $book->save();
             return redirect()->route('book.show', [ $book ])->with('message', 'Success');
         }
     }
-
+    public function reportMessageStore(Request $request, Report $report)
+    {
+        $report = $report->firstOrFail();
+        //check if this report created by this user
+        if($report->user_id == auth()->user()->id)
+        {
+            $request->validate([
+                'message' => 'required',
+            ]);
+            ReportMessage::create([
+                'message' => $request->message,
+                'user_id' => auth()->user()->id,
+                'report_id' => $report->id,
+            ]);
+            return redirect()->route('report.show', [ $report ])->with('message', 'Message set successfuly!');
+        }
+        elseif( auth()->user()->admin ){
+            $request->validate([
+                'message' => 'required',
+            ]);
+            ReportMessage::create([
+                'message' => $request->message,
+                'user_id' => auth()->user()->id,
+                'report_id' => $report->id,
+                'is_admin' => auth()->user()->admin
+            ]);
+            return redirect()->route('report.show', [ $report ])->with('message', 'Message set successfuly!');
+        }
+            return abort(403);
+    }
     /**
      * Display the specified resource.
      *
@@ -70,7 +101,8 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
+        
+        return view('book.reports.chat')->with('report',$report);
     }
 
     /**
@@ -95,7 +127,7 @@ class ReportController extends Controller
     {
         //
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *

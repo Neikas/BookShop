@@ -196,6 +196,7 @@ class BookController extends Controller
     {
         $book->authors()->detach();
         $book->genders()->detach();
+        //add delete picture from book if had
         $book->delete();
 
         return redirect()->route('book.show');

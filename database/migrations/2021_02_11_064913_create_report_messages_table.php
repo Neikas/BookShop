@@ -16,7 +16,8 @@ class CreateReportMessagesTable extends Migration
         Schema::create('report_messages', function (Blueprint $table) {
             $table->id();
             $table->string('message'); 
-            $table->foreignId('report_id');
+            $table->foreignId('report_id')->references('id')->on('reports');;
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });

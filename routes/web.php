@@ -32,3 +32,5 @@ Route::group(['middleware' => 'admin'], function (){
 //reports
 Route::get('/report/index', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
 Route::post('/report/store/{book_id}', [App\Http\Controllers\ReportController::class, 'store'])->name('report.store');
+Route::get('/report/show/{report}', [App\Http\Controllers\ReportController::class, 'show'] )->name('report.show');
+Route::post('/report/message/store/{report_id}', [App\Http\Controllers\ReportController::class ,'reportMessageStore'])->name('report.message.store');

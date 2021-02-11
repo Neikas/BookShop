@@ -15,7 +15,7 @@ class CreateBookGenderTable extends Migration
     {
         Schema::create('book_gender', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->references('id')->on('books');
             $table->foreignId('gender_id')->constrained();
             $table->timestamps();
         });

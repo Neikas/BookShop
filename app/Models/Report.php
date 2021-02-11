@@ -11,8 +11,12 @@ class Report extends Model
     protected $fillable = [
         'book_id' , 'user_id', 'report_text'
      ];
-    public function reportMessage()
+    public function reportMessages()
     {
-        $this->hasMany(ReportMessage::class);
+       return  $this->hasMany(ReportMessage::class);
+    }
+    public function book()
+    {
+       return  $this->belongsTo(Book::class);
     }
 }

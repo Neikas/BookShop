@@ -14,7 +14,6 @@
             </div> <!-- Card -->
         </div>
     </div>
-    
 @endforeach
 
 
