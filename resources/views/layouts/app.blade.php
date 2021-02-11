@@ -65,6 +65,9 @@
                                     <a class="dropdown-item" href="{{ route('userBook', ['id'=> Auth::user()->id] ) }}">
                                         {{ __('My books') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('report.index' ) }}">
+                                        {{ __('My reported books') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('book.create', ) }}">
                                         {{ __('Add book') }}
                                     </a>

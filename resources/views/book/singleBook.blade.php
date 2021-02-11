@@ -11,7 +11,12 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col align-self-start">
-                                <h5 >{{ $book->title}}</h5>
+                                <h5 >{{ $book->title}}</h5>   
+                                @auth  
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form">
+                                        Report this book
+                                    </button>  
+                                @endauth
                             </div>
                             <div class="col-6 align-self-end">
                                 <div class="d-flex">
@@ -25,6 +30,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body">
                       <h5 class="card-title">
                           @foreach ($book->authors as $author)
@@ -37,10 +43,13 @@
                 </div>
             </div>  
         </div>
+        @auth   
+            {{-- Modal --}}
+            @include('book.reportBook')
+            {{-- Modal --}}    
+        @endauth
         <div class="row mt-5">
-                @include('book.bookReviews')
-
-                
+                @include('book.bookReviews')  
         </div>
         <div class="row mt-5">
 
