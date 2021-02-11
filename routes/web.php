@@ -16,14 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
-//book
-
-Route::resource('/book', App\Http\Controllers\BookController::class);
-Route::get('/book/myBooks/{id}', [App\Http\Controllers\BookController::class, 'getAllUserBooks'])->name('userBook');
-
-Route::post('/review/store/{book_id}/{user_id}', [App\Http\Controllers\ReviewController::class, 'store' ])->name('review.store');
-Route::post('/review/index/{book_id}', [App\Http\Controllers\ReviewController::class, 'index' ])->name('review.index');
 Route::get('/', function(){
     return redirect()->route('book.index');
+});
+//book
+Route::resource('/book', App\Http\Controllers\BookController::class);
+Route::get('/book/myBooks/{id}', [App\Http\Controllers\BookController::class, 'getAllUserBooks'])->name('userBook');
+//Review
+Route::post('/review/store/{book_id}/{user_id}', [App\Http\Controllers\ReviewController::class, 'store' ])->name('review.store');
+Route::post('/review/index/{book_id}', [App\Http\Controllers\ReviewController::class, 'index' ])->name('review.index');
+//admin
+
+Route::group(['middleware' => 'admin'], function (){
+    
 });
