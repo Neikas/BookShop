@@ -22,6 +22,8 @@ class BookController extends Controller
     }
     public function search(Request $request)
     {
+        session()->flash('search', $request->search);
+
         $search = $request->search;
         $bookFromTitle = Book::query()
         ->where('title', 'LIKE', "%{$search}%")
