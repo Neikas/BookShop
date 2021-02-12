@@ -11,7 +11,7 @@ This is Book Stroe project
 ```bash
 composer intall
 php aritsan migrate
-php artisane serve
+php artisan serve
 ```
 ## Usage
 
@@ -43,7 +43,7 @@ Please make sure to update tests as appropriate.
 - [x] must have a register button
 - [x] Registration page
 - [x] must have a log in button
-- [] must have an email, password with show password in it, confirm password and date of birth
+- [ ] must have an email, password with show password in it, confirm password and date of birth
 # Book page
 - [x] must have description
 - [x] users can leave reviews
@@ -56,7 +56,7 @@ Please make sure to update tests as appropriate.
 can manage their books
 - [x] can give a review on a book (stars + comments)
 # Admin account
-- [] they can change the password
+- [ ] they can change the password
 - [x] can reply to user's report
 - [x] can manage and update all the books
 
