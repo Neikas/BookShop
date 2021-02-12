@@ -5,6 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                    @foreach ($errors->all() as $error)
+                        {!! $errors->first() !!}
+                    @endforeach
                         <div class="card-header">{{ __('Add Book to store') }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('book.store') }}" enctype="multipart/form-data">

@@ -22,6 +22,7 @@ class BookController extends Controller
     }
     public function search(Request $request)
     {
+<<<<<<< HEAD
         $search = $request->input('search');
         setcookie('search',$search, time()+60*5);
         $books = Book::where('approved', true)
@@ -33,6 +34,14 @@ class BookController extends Controller
             })->paginate(25);
         
             dd($books );
+=======
+        session()->flash('search', $request->search);
+
+        $search = $request->search;
+        $bookFromTitle = Book::query()
+        ->where('title', 'LIKE', "%{$search}%")
+        ->get('id');
+>>>>>>> d48da10f73a900287e18cb8e55bbd8efe50f09e7
 
         // $bookFromTitle = Book::query()
         // ->where('title', 'LIKE', "%{$search}%")
