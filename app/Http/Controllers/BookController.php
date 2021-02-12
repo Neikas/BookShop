@@ -22,24 +22,35 @@ class BookController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->search;
-        $bookFromTitle = Book::query()
-        ->where('title', 'LIKE', "%{$search}%")
-        ->get('id');
+        $search = $request->input('search');
+        setcookie('search',$search, time()+60*5);
+        $books = Book::where('approved', true)
+        ->where( function($query) use ($search) {
+            $query->where('title','LIKE','%'.$search.'%');
+            $query->orWhereHas('authors' ,function($query) use ($search) {
+            $query->where('author', 'LIKE','%'.$search.'%');
+            });
+            })->paginate(25);
+        
+            dd($books );
 
-        $books = Book::all();
-        $authorBookId =[];
-        foreach($books as $book){
-            foreach($book->authors as $author){
-                if(Str::contains($author->author, $search)){
-                    array_push($authorBookId , $book->id);
-                }
-            }
-        }
-        $booksFromAuthors = $book->find($authorBookId);
+        // $bookFromTitle = Book::query()
+        // ->where('title', 'LIKE', "%{$search}%")
+        // ->get('id');
 
-        $books = $bookFromTitle->merge($booksFromAuthors);
-        $books = $books->where('approved', '=', true );
+        // $books = Book::all();
+        // $authorBookId =[];
+        // foreach($books as $book){
+        //     foreach($book->authors as $author){
+        //         if(Str::contains($author->author, $search)){
+        //             array_push($authorBookId , $book->id);
+        //         }
+        //     }
+        // }
+        // $booksFromAuthors = $book->find($authorBookId);
+
+        // $books = $bookFromTitle->merge($booksFromAuthors);
+        // $books = $books->where('approved', '=', true );
 
         return view('book.search')->with('books', $books);
     }

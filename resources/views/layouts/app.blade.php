@@ -35,9 +35,7 @@
                     <!-- Left Side Of Navbar Search-->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-
                                 <form method="get" action="{{ route('books.search') }}" style="width: 400px">
-                                    @csrf
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="input-group pr-1 rounded">
@@ -51,10 +49,7 @@
                                             </button>
                                         </div>
                                     </div>
-
-
                                 </form>
-
                         </li>
                     </ul>
 
