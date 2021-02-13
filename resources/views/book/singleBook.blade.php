@@ -21,10 +21,10 @@
                             <div class="col-6 align-self-end">
                                 <div class="d-flex">
                                     <div class="content text-center">
-                                        <div class="ratings"> <span class="product-rating">{{ $book->reviews[0]->stars ?? 'No rating'}}</span><span>/5</span>
-                                            <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                        <div class="ratings"> <span class="product-rating">{{ round ($book->sumStars / $book->countStars, 1 )}}</span><span>/5</span>
+                                            <div class="stars"> @php echo str_repeat('<i class="fa fa-star"></i>', round ($book->sumStars / $book->countStars, 1 ))@endphp </div>
                                                 
-                                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                                            <div class="rating-text"> <span>{{ $book->countStars }} ratings & {{ $book->countComments }} reviews</span> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -54,23 +54,20 @@
         <div class="row mt-5">
 
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5 justify-content-center">
             @guest
                     <div class="col-12">
                         <div class="alert alert-danger" role="alert">
                             Log in or register to leave review!
                         </div>
                     </div>
-            @else 
+            @else
+            <div class="col-12 md-1 mt-1" >
+                {{-- {{ $book->reviews->links() }} --}}
+            </div>
                 @include('book.reviewForm')
-                <div class="col-12">
-                    {{ $book->reviews->links() }}
-                </div>
-
             @endguest
 
         </div>
     </div>
-
-
 @endsection

@@ -1,3 +1,14 @@
+
+@if(count($books) < 1)
+<div class="row justify-content-center">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">No records found!</h4>
+      <hr>
+      <p>Aww yeah, we didn't founded that book ; ()</p>
+    </div>
+  </div>
+@endif
+
 @foreach ($books->chunk(5) as $chunk)
     <div class="row justify-content-center">
         @foreach ($chunk as $book)

@@ -12,8 +12,8 @@ class ReportMessage extends Model
     protected $fillable = [
         'message' , 'report_id','user_id','is_admin'
      ];
-     public function report()
-     {
+     public function report(){
+
         return  $this->belongsTo(Report::class);
      }
      public function user()

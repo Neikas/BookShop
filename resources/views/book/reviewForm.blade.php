@@ -12,7 +12,6 @@
                         <input type="hidden" name="user_id" value="{{ $book->id }}"/>
                         <div class="col-md-9">
                             <div class="rating">
-                            
                              <label>
                                 <input type="radio" name="stars" value="1" />
                                 <span class="icon">★</span>
@@ -69,6 +68,6 @@
 <script>
     $(':radio').change(function() {
 console.log('New star rating: ' + this.value);
-});
+  });
 
 </script>

@@ -22,9 +22,10 @@ class BookController extends Controller
     }
     public function search(Request $request)
     {
-<<<<<<< HEAD
         $search = $request->input('search');
+
         setcookie('search',$search, time()+60*5);
+
         $books = Book::where('approved', true)
         ->where( function($query) use ($search) {
             $query->where('title','LIKE','%'.$search.'%');
@@ -33,33 +34,7 @@ class BookController extends Controller
             });
             })->paginate(25);
         
-            dd($books );
-=======
         session()->flash('search', $request->search);
-
-        $search = $request->search;
-        $bookFromTitle = Book::query()
-        ->where('title', 'LIKE', "%{$search}%")
-        ->get('id');
->>>>>>> d48da10f73a900287e18cb8e55bbd8efe50f09e7
-
-        // $bookFromTitle = Book::query()
-        // ->where('title', 'LIKE', "%{$search}%")
-        // ->get('id');
-
-        // $books = Book::all();
-        // $authorBookId =[];
-        // foreach($books as $book){
-        //     foreach($book->authors as $author){
-        //         if(Str::contains($author->author, $search)){
-        //             array_push($authorBookId , $book->id);
-        //         }
-        //     }
-        // }
-        // $booksFromAuthors = $book->find($authorBookId);
-
-        // $books = $bookFromTitle->merge($booksFromAuthors);
-        // $books = $books->where('approved', '=', true );
 
         return view('book.search')->with('books', $books);
     }
@@ -88,6 +63,8 @@ class BookController extends Controller
 
         return redirect()->route('admin.book.index');
     }
+
+
     public function index()
     {
             $books = Book::where('approved', '=', true )->paginate(25);
@@ -152,6 +129,7 @@ class BookController extends Controller
         }
             return redirect()->route('book.create')->with('message', 'Success');
     }
+
     public function getAllUserBooks($userId)
     {
         if( auth()->user()->id == $userId)
@@ -171,8 +149,20 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-            $book->reviews = Review::where('book_id','=',$book->id)->paginate(1);
 
+        $sumStars = 0;
+        $countComments = 0;
+        $countStars = 0; 
+        foreach($book->reviews as $review){
+            $sumStars += $review->stars;
+            if($review->comment != null) $countComments++;
+            if($review->stars != null) $countStars++;
+        }
+        $book->countStars = $countStars;
+        $book->sumStars = $sumStars;
+        $book->countComments = $countComments;
+        //To Do pagiante
+        // $book->reviews()->paginate(4);
         return view('book.singleBook')->with('book', $book);
     }
 
