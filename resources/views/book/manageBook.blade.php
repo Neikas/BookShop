@@ -4,9 +4,9 @@
 
 <div>
     <div class="row justify-content-center">
-        <h2>
+        <h4>
             My books
-        </h2>
+        </h4>
     </div>
     @include('book.userBookIndex')
     <div class="row justify-content-center">

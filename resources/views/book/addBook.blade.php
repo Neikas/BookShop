@@ -30,14 +30,14 @@
                                     <input type="text" name="author" class="form-control" value="{{  old('author')  }}" placeholder="{{ __('J. K. Rowling, Jack Thorne,') }}" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">{{ __('Book Gender') }} </label>
-                                    @if ($errors->has('gender'))
+                                    <label for="exampleFormControlInput1">{{ __('Book Genre') }} </label>
+                                    @if ($errors->has('genre'))
                                     <span class="text-danger">{{ $errors->first('title') }}</span>
                                     @endif
-                                    <a type="button" data-toggle="tooltip" data-placement="right" title="Seperate Genders with comma to add more than one!">
+                                    <a type="button" data-toggle="tooltip" data-placement="right" title="Seperate genres with comma to add more than one!">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     </a>
-                                    <input type="text" name="gender" class="form-control" value="{{  old('gender')  }}" placeholder="{{ __('Romance, love, drama') }}" required >
+                                    <input type="text" name="genre" class="form-control" value="{{  old('genre')  }}" placeholder="{{ __('Romance, love, drama') }}" required >
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">{{ __('Description') }}</label>

@@ -36,6 +36,9 @@
                     <!-- Left Side Of Navbar Search-->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <h2><a href="{{ route('book.index') }}" style="text-decoration: none;">BookShop</a><h2>
+                        </li>
+                        <li class="nav-item">
                                 <form method="get" action="{{ route('books.search') }}" style="width: 400px">
                                     <div class="row">
                                         <div class="col-8">

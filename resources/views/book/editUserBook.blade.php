@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">{{ __('Book Author') }} </label>
                                     @if ($errors->has('author'))
-                                        <span class="text-danger">{{ $errors->first('title') }}</span>
+                                        <span class="text-danger">{{ $errors->first('author') }}</span>
                                     @endif
                                     <a type="button" data-toggle="tooltip" data-placement="right" title="Seperate Author with comma to add more than one!">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -29,14 +29,14 @@
                                     <input type="text" name="author" class="form-control" value="{{  $book->authors  }}" placeholder="{{ __('J. K. Rowling, Jack Thorne,') }}" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">{{ __('Book Gender') }} </label>
-                                    @if ($errors->has('gender'))
-                                    <span class="text-danger">{{ $errors->first('title') }}</span>
+                                    <label for="exampleFormControlInput1">{{ __('Book Genre') }} </label>
+                                    @if ($errors->has('genre'))
+                                    <span class="text-danger">{{ $errors->first('genre') }}</span>
                                     @endif
-                                    <a type="button" data-toggle="tooltip" data-placement="right" title="Seperate Genders with comma to add more than one!">
+                                    <a type="button" data-toggle="tooltip" data-placement="right" title="Seperate Genres with comma to add more than one!">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     </a>
-                                    <input type="text" name="gender" class="form-control"  value="{{  $book->genders  }}" placeholder="{{ __('Romance, love, drama') }}" required >
+                                    <input type="text" name="genre" class="form-control"  value="{{  $book->genres  }}" placeholder="{{ __('Romance, love, drama') }}" required >
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">{{ __('Description') }}</label>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Author;
-use App\Models\Gender;
+use App\Models\Genre;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -107,7 +107,7 @@ class BookController extends Controller
         ]);
 
         $authors = explode(',',$request->author);
-        $genders = explode(',',$request->gender);
+        $genres = explode(',',$request->genre);
 
         foreach($authors as $author)
         {
@@ -118,14 +118,14 @@ class BookController extends Controller
             }
             $authorCheck->books()->attach($book);
         }
-        foreach($genders as $gender)
+        foreach($genres as $genre)
         {
-            $genderCheck = Gender::where('gender','=', $gender)->first();
-            if ($genderCheck === null)
+            $genreCheck = Genre::where('genre','=', $genre)->first();
+            if ($genreCheck === null)
             {
-                $genderCheck =  Gender::create(['gender'=> $gender]);
+                $genreCheck =  Genre::create(['genre'=> $genre]);
             }
-            $genderCheck->books()->attach($book);
+            $genreCheck->books()->attach($book);
         }
             return redirect()->route('book.create')->with('message', 'Success');
     }
@@ -176,10 +176,10 @@ class BookController extends Controller
     {
 
         $authors = $book->authors()->get()->implode('author', ',');
-        $genders = $book->genders()->get()->implode('gender', ',');
+        $genres = $book->genres()->get()->implode('genre', ',');
 
         $book->authors = $authors;
-        $book->genders = $genders;
+        $book->genres = $genres;
 
         return view('book.editUserBook')->with('book', $book);
     }
@@ -208,10 +208,10 @@ class BookController extends Controller
         }
 
         $authors = explode(',',$request->author);
-        $genders = explode(',',$request->gender);      
+        $genres = explode(',',$request->genre);      
 
         $book->authors()->detach();
-        $book->genders()->detach();
+        $book->genres()->detach();
 
         foreach($authors as $author)
         {    
@@ -223,14 +223,14 @@ class BookController extends Controller
             }
             $authorCheck->books()->attach($book);
         }
-        foreach($genders as $gender)
+        foreach($genres as $genre)
         {
-            $genderCheck = Gender::where('gender','=', $gender)->first();
-            if ($genderCheck == null)
+            $genreCheck = Genre::where('genre','=', $genre)->first();
+            if ($genreCheck == null)
             {
-                $genderCheck =  Gender::create(['gender'=> $gender]);
+                $genreCheck =  Genre::create(['genre'=> $genre]);
             }
-            $genderCheck->books()->attach($book);
+            $genreCheck->books()->attach($book);
         }
       
         $book->title = $request->title;
@@ -252,11 +252,11 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->authors()->detach();
-        $book->genders()->detach();
+        $book->genres()->detach();
         //add delete picture from book if had
         $book->delete();
 
-        return redirect()->route('book.show');
+        return redirect()->route('book.show', $book);
     }
         /**
      * Display book my id from list

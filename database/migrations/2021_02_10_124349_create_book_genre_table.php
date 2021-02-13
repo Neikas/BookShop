@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookGenderTable extends Migration
+class CreateBookGenreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateBookGenderTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_gender', function (Blueprint $table) {
+        Schema::create('book_genre', function (Blueprint $table) {
             $table->id();
             $table->foreignId('book_id')->references('id')->on('books');
-            $table->foreignId('gender_id')->constrained();
+            $table->foreignId('genre_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateBookGenderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_gender');
+        Schema::dropIfExists('book_genre');
     }
 }
