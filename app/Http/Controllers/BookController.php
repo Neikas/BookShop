@@ -67,7 +67,10 @@ class BookController extends Controller
 
     public function index()
     {
-            $books = Book::where('approved', '=', true )->paginate(25);
+            $books = Book::where('approved', '=', true )
+            ->orderBy('created_at', 'desc')
+            ->orderBy('discount', 'desc')
+            ->paginate(25);
 
         return view('main')->with('books', $books);
     }

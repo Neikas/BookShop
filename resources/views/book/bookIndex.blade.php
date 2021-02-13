@@ -13,18 +13,35 @@
     <div class="row justify-content-center">
         @foreach ($chunk as $book)
             <div class="card" style="width: 12rem; margin: 5px;">
-            <img src="{{ asset( $book->picture) }}"  style="width:100%; height:350px;" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">{{ $book->title }}</h5>
-            <h5 class="card-title">
-                @foreach ($book->authors as $author)
-                    {{ $author->author . ' ' }}
-                @endforeach
-            </h5>
-            <h4 class="card-title"> {{ $book->price }} &euro;</h4>
-            <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
+                    <img src="{{ asset( $book->picture) }}"  style="width:100%; height:350px;" class="card-img-top rounded" alt="...">
+                    
+                    
+                <div class="card-body">
+
+                    @if ($book->discount > 0 )
+                    <div class="alert alert-danger" role="alert">
+                    <span class="label label-danger"> 
+                        <i class="fa fa-percent fa-5" aria-hidden="true">{{ $book->discount }}</i>
+                    </span>
+                </div>
+                    @endif
+                    @if   ( $book->created_at->subWeek() > $book->ceated_at )   
+                    <div class="alert alert-danger" role="alert">
+                        <span class="label label-danger"> 
+                            <i class="fa fa-tags fa-5" aria-hidden="true">New</i>
+                        </span> 
+                    </div>
+                    @endif
+                    <h5 class="card-title">{{ $book->title }}</h5>
+                    <h5 class="card-title">
+                        @foreach ($book->authors as $author)
+                            {{ $author->author . ' ' }}
+                        @endforeach
+                    </h5>
+                    <h5 class="card-title"> {{ $book->price }} &euro;</h5>
+                    <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
+                </div>
             </div>
-        </div>
         @endforeach
     </div >
 @endforeach

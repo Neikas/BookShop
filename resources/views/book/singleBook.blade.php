@@ -21,11 +21,19 @@
                             <div class="col-6 align-self-end">
                                 <div class="d-flex">
                                     <div class="content text-center">
+                                        @if($book->countStars > 0 )
                                         <div class="ratings"> <span class="product-rating">{{ round ($book->sumStars / $book->countStars, 1 )}}</span><span>/5</span>
                                             <div class="stars"> @php echo str_repeat('<i class="fa fa-star"></i>', round ($book->sumStars / $book->countStars, 1 ))@endphp </div>
                                                 
                                             <div class="rating-text"> <span>{{ $book->countStars }} ratings & {{ $book->countComments }} reviews</span> </div>
                                         </div>
+                                        @else
+                                        <div class="ratings"> <span class="product-rating">{{ 0 }}</span><span>/5</span>
+                                            <div class="stars"> @php echo str_repeat('<i class="fa fa-star"></i>', 0 )@endphp </div>
+                                                
+                                            <div class="rating-text"> <span>{{ $book->countStars }} ratings & {{ $book->countComments }} reviews</span> </div>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

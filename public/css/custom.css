@@ -134,3 +134,15 @@
   color: #000;
   text-shadow: 0 0 5px #09f;
 }
+
+
+
+.image { position: relative; }
+.image img { display: block; }
+.image .fa-percent { position: absolute; bottom:0; left:0; }
+.image .col .bg-dark .fa-tags  { 
+  position: absolute; 
+  bottom:0; 
+  left:0; 
+  color: red;
+}
