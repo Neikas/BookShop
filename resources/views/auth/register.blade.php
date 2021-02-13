@@ -67,8 +67,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Show password') }}</label>
+                            <div class="col-md-8">
+                                <input type="checkbox" id="showPassword" class="form-check-input" >
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
@@ -87,4 +93,21 @@
         </div>
     </div>
 </div>
+
+<script>
+
+$('#showPassword').click(function(){
+    console.log('works');
+    if('password' == $('#password').attr('type')   ) 
+    {
+         $('#password').prop('type', 'text');
+         $('#password-confirm').prop('type', 'text');
+    }else{
+        $('#password').prop('type', 'password');
+        $('#password-confirm').prop('type', 'password');
+    }
+});
+
+</script>
 @endsection
+

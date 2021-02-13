@@ -28,8 +28,8 @@ Please make sure to update tests as appropriate.
 - [x] the book can have multiple authors and genres
 - [x] all book covers must have consistent dimensions
 - [x] when there are more than 25 books on a page, there will be [next] and [previous] buttons
-- [ ] books uploaded last week should have something to display that they are [NEW]
-- [ ]  the book may have a discount (by percentage), and I also would like to see that in the listing [10%]
+- [x] books uploaded last week should have something to display that they are [NEW]
+- [x]  the book may have a discount (by percentage), and I also would like to see that in the listing [10%]
 - [x] Search bar when searching for a book it should look for title and author
 - [x] lists them in the same layout as the landing page
 - [x] a search bar must have a cookie that tracks the previous search you had
@@ -43,7 +43,7 @@ Please make sure to update tests as appropriate.
 - [x] must have a register button
 - [x] Registration page
 - [x] must have a log in button
-- [ ] must have an email, password with show password in it, confirm password and date of birth
+- [x] must have an email, password with show password in it, confirm password and date of birth
 # Book page
 - [x] must have description
 - [x] users can leave reviews
