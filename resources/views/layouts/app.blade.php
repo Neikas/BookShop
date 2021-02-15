@@ -90,7 +90,7 @@
                                             {{ __('Books for approval') }}
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('userBook', ['id'=> Auth::user()->id] ) }}">
+                                    <a class="dropdown-item" href="{{ route('userBook') }}">
                                         {{ __('My books') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('report.index' ) }}">

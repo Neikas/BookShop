@@ -19,7 +19,6 @@ class CreateAuthorBookTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->timestamps();
         });
-        DB::table('author_book')->insert(['book_id' => 1, 'author_id' => 1]);
     }
 
     /**

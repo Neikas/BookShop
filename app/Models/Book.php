@@ -10,12 +10,25 @@ class Book extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'review_id', 'user_id', 'report_id' ,'title', 'description','price', 'discount', 'author_id', 'picture','approved',
+       'review_id', 'user_id','title', 'description','price', 'discount', 'author_id', 'picture','approved',
     ];
+    protected $perPage = 25;
 
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
+    }
+    public function getAvgRatingAttribute()
+    {
+        return round( $this->reviews()->average('stars'), 1 );
+    }
+    public function getIsNewAttribute()
+    {
+        return $this->created_at > now()->subWeek();
+    }
     public function reviews()
     {
-        return $this->hasMany(Review::class)->latest();
+        return $this->hasMany(Review::class)->latest('id');
     }
     public function genres()
     {

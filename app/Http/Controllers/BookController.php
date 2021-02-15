@@ -14,12 +14,6 @@ use App\Support\Collection;
 
 class BookController extends Controller
 {   
-
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => array('index', 'show','search') ]);
-     
-    }
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -53,13 +47,7 @@ class BookController extends Controller
      */
     public function bookChangeApproved(Book $book, $status)
     {
-        if($status)
-        {
-            $book->approved = false;
-        }else{
-            $book->approved = true;
-        }
-        $book->save();
+        $book->update(['approved' => true]);
 
         return redirect()->route('admin.book.index');
     }
@@ -67,10 +55,7 @@ class BookController extends Controller
 
     public function index()
     {
-            $books = Book::where('approved', '=', true )
-            ->orderBy('created_at', 'desc')
-            ->orderBy('discount', 'desc')
-            ->paginate(25);
+        $books = Book::approved()->latest('id')->paginate();
 
         return view('main')->with('books', $books);
     }
@@ -130,19 +115,13 @@ class BookController extends Controller
             }
             $genreCheck->books()->attach($book);
         }
-            return redirect()->route('book.create')->with('message', 'Success');
+            return redirect()->route('userBook')->with('message', 'Success');
     }
 
-    public function getAllUserBooks($userId)
+    public function getAllUserBooks()
     {
-        if( auth()->user()->id == $userId)
-        {
-            $books = Book::where('user_id', '=', $userId )->paginate(15);
-
-            return view('book.manageBook')->with('books', $books);
-
-        }
-        return redirect()->route('book.index')->with('message', 'No books!');
+        $books = auth()->user()->books()->paginate();
+        return view('book.manageBook')->with('books', $books);
     }
     /**
      * Display the specified resource.
@@ -152,20 +131,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        $book->loadCount('reviews');
 
-        $sumStars = 0;
-        $countComments = 0;
-        $countStars = 0; 
-        foreach($book->reviews as $review){
-            $sumStars += $review->stars;
-            if($review->comment != null) $countComments++;
-            if($review->stars != null) $countStars++;
-        }
-        $book->countStars = $countStars;
-        $book->sumStars = $sumStars;
-        $book->countComments = $countComments;
-        //To Do pagiante
-        // $book->reviews()->paginate(4);
         return view('book.singleBook')->with('book', $book);
     }
 

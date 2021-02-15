@@ -9,7 +9,7 @@ class Review extends Model
 {
     use HasFactory;
     
-    protected $perPage = 5;
+    protected $perPage = 20;
 
     protected $fillable = [
         'stars', 'comment' ,'book_id','author'

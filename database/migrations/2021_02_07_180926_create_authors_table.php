@@ -18,8 +18,6 @@ class CreateAuthorsTable extends Migration
             $table->string('author');
             $table->timestamps();
         });
-
-        DB::table('authors')->insert(['author' => 'Edvinas']);
     }
 
     /**

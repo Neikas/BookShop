@@ -58,7 +58,7 @@
                                         <span class="text-danger">{{ $errors->first('picture') }}</span>
                                     @endif
                                     <label for="exampleFormControlFile1">{{ __('Book Price') }}</label>
-                                    <input type="number" min="1" step="0.10" name="price"  class="form-control" value="{{  old('price')  }}" placeholder="{{ __('12.99') }}" required >
+                                    <input type="number" min="1" step="0.01" name="price"  class="form-control" value="{{  old('price')  }}" placeholder="{{ __('12.99') }}" required >
                                 </div>
 
                                 <button type="submit"  class="btn btn-primary btn-lg btn-block"> Post book to listing</button>

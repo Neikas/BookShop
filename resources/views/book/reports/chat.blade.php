@@ -45,7 +45,7 @@
                 @endif
             @endforeach
   
-            <form method="POST" action="{{ route('report.message.store', ['report_id' => $report->id ])}}">
+            <form method="POST" action="{{ route('report.message.store', ['report' => $report ])}}">
                 @csrf
                 <div class="send-wrap ">
                     <textarea class="form-control send-message" name="message" rows="3" placeholder="Write a message..."></textarea>

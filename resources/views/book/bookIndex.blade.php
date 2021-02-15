@@ -25,7 +25,7 @@
                     </span>
                 </div>
                     @endif
-                    @if   ( $book->created_at->subWeek() > $book->ceated_at )   
+                    @if( $book->is_new )   
                     <div class="alert alert-danger" role="alert">
                         <span class="label label-danger"> 
                             <i class="fa fa-tags fa-5" aria-hidden="true">New</i>
