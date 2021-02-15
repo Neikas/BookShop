@@ -10,12 +10,17 @@ This is Book Stroe project
 
 ```bash
 composer intall
-php aritsan migrate
+php aritsan migrate:fresh --seed
 php artisan serve
 ```
-## Usage
+## User
 
-
+**admin**
+admin@lt.lt
+password
+**user**
+user@lt.lt
+password
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.

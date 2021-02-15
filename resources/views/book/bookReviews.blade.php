@@ -1,4 +1,4 @@
-<h4 class="card-title">Latest Rviews</h4>
+<h4 class="card-title">Latest Reviews</h4>
 @foreach ( $book->reviews as $review)
     <div class="col-lg-12">
         <div class="card">

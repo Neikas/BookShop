@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('report_id')->nullable();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->double('price');
             $table->string('picture');
             $table->boolean('approved')->default(false);

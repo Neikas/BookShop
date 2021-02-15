@@ -23,13 +23,13 @@ class BookFactory extends Factory
     {
         return [
             'review_id' => null,
-            'user_id' => 1,
-            'title' => $this->faker->title,
-            'description' => $this->faker->text,
-            'price' => 12.99,
+            'user_id' => 2,
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
+            'price' => $this->faker->randomDigit,
             'discount' => 0,
-            'picture' => 'basic.jpg',
-
+            'approved' => true,
+            'picture' => 'uploads/booksCover/default.png',
         ];
     }
 }
