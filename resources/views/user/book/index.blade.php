@@ -2,7 +2,16 @@
 
 @section('content')
 
-
+<div class="row justify-content-center">
+    <h4>My books</h4>
+</div>
+@if($books->count() < 1)
+<div class="row justify-content-center">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">No books found!</h4>
+    </div>
+  </div>
+@endif
 @foreach ($books->chunk(5) as $chunk)
     <div class="row justify-content-center">
         @foreach ($chunk as $book)
@@ -21,21 +30,11 @@
                     <div class="col-6">
                         <a href="{{ route('book.edit', [ $book ]) }}" class="btn btn-sm btn-primary">Edit book </a>             
                     </div>
-
                     <div class="col-6">
                         <a  class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">Delete book </a>
                     </div>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        @if($book->approved)
-                        <a href="{{ route('admin.book.change.approved', [ 'book' => $book, 'status' => true ]) }}" class="btn btn-block btn-danger">Dissaprove book </a>
-                        @else
-                        <a href="{{ route('admin.book.change.approved', [ 'book' => $book, 'status' => 0 ]) }}" class="btn btn-block btn-primary">Approve book </a>
-                        @endif
-                    </div>
-                </div>
+            </div>
             <div class="modal modal-danger fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -62,9 +61,9 @@
         </div>
         @endforeach
     </div >
-    <!-- Delete Warning Modal -->
-
-        <!-- End Delete Modal --> 
 @endforeach
+<div class="row justify-content-center">
+    {{ $books->links() }}
+</div>
 
 @endsection

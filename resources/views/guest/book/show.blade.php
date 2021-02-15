@@ -53,12 +53,12 @@
             </div>  
         </div>
         @auth   
-            {{-- Modal --}}
-            @include('book.reportBook')
+            {{-- User report create form Modal --}}
+            @include('user.book.report.create')
             {{-- Modal --}}    
         @endauth
         <div class="row mt-5">
-                @include('book.bookReviews')  
+                @include('guest.book.review.index')  
         </div>
         <div class="row mt-5">
 
@@ -74,7 +74,7 @@
             <div class="col-12 md-1 mt-1" >
                 {{-- {{ $book->reviews->links() }} --}}
             </div>
-                @include('book.reviewForm')
+                @include('user.book.review.create')
             @endguest
 
         </div>

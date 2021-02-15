@@ -16,6 +16,7 @@ class BookController extends Controller
 {   
     public function search(Request $request)
     {
+
         $search = $request->input('search');
 
         setcookie('search',$search, time()+60*5);
@@ -26,19 +27,19 @@ class BookController extends Controller
             $query->orWhereHas('authors' ,function($query) use ($search) {
             $query->where('author', 'LIKE','%'.$search.'%');
             });
-            })->paginate(25);
+            })->paginate();
         
         session()->flash('search', $request->search);
 
-        return view('book.search')->with('books', $books);
+        return view('guest.book.index')->with('books', $books);
     }
 
 
     public function indexAdminBookUnapproved()
     {
-            $books = Book::paginate(20);
+        $books = Book::paginate();
 
-        return view('book.adminBookIndex')->with('books', $books);
+        return view('admin.book.index')->with('books', $books);
     }
     /**
      * Display a listing of the resource.
@@ -55,9 +56,10 @@ class BookController extends Controller
 
     public function index()
     {
+
         $books = Book::approved()->latest('id')->paginate();
 
-        return view('main')->with('books', $books);
+        return view('guest.book.index')->with('books', $books);
     }
         /**
      * Show the form for creating a new resource.
@@ -66,7 +68,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.addBook');
+        return view('user.book.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -121,7 +123,8 @@ class BookController extends Controller
     public function getAllUserBooks()
     {
         $books = auth()->user()->books()->paginate();
-        return view('book.manageBook')->with('books', $books);
+
+        return view('user.book.index')->with('books', $books);
     }
     /**
      * Display the specified resource.
@@ -133,7 +136,7 @@ class BookController extends Controller
     {
         $book->loadCount('reviews');
 
-        return view('book.singleBook')->with('book', $book);
+        return view('guest.book.show')->with('book', $book);
     }
 
     /**
@@ -151,7 +154,7 @@ class BookController extends Controller
         $book->authors = $authors;
         $book->genres = $genres;
 
-        return view('book.editUserBook')->with('book', $book);
+        return view('user.book.edit')->with('book', $book);
     }
 
     /**
@@ -226,7 +229,7 @@ class BookController extends Controller
         //add delete picture from book if had
         $book->delete();
 
-        return redirect()->route('book.show', $book);
+        return redirect()->route('admin.book.index')->with('message', 'Success');
     }
         /**
      * Display book my id from list

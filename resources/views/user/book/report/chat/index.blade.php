@@ -36,8 +36,8 @@
                         <div class="media msg">
                             <div class="media-body">
                                 <small class="pull-right time"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::parse($message->created_at)->isoFormat('dddd, MMMM Do YYYY, h:mm')}}</small>
-                                <h5 class="media-heading">{{ $message->user->name}}</h5>
-                                <p class="col-lg-6">{{ $message->message}}</p>
+                                <h5 class="media-heading">{{ $message->user->name }}</h5>
+                                <p class="col-lg-6">{{ $message->message }}</p>
                             </div>
                         </div>
                     </div>

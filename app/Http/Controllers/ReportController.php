@@ -9,10 +9,6 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,11 +19,13 @@ class ReportController extends Controller
         if(auth()->user()->admin)
         {
             $reports = Report::paginate();
-            
-        }else{
-            $reports = auth()->user()->reports()->paginate();
+
+            return view('user.book.report.index')->with([ 'reports' => $reports  ]);
         }
-        return view('book.reports.index')->with(['reports'=> $reports , ]);
+
+        $reports = auth()->user()->reports()->paginate();
+        
+        return view('user.book.report.index')->with([ 'reports' => $reports ]);
     }
 
     /**
@@ -95,7 +93,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        return view('book.reports.chat')->with('report', $report);
+        return view('user.book.report.chat.index')->with('report', $report);
     }
 
     /**

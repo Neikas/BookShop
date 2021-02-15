@@ -32,16 +32,17 @@ Route::middleware( 'auth')->group( function(){
         'create',
         'update',
         'edit',
-        'destory'
+        'destroy'
     ]);
-        
+
     Route::get('/book/myBooks', [BookController::class, 'getAllUserBooks'])->name('userBook');
 
     Route::get('/report/index', [ReportController::class, 'index'])->name('report.index');
     Route::post('/report/store/{book_id}', [ReportController::class, 'store'])->name('report.store');
     Route::get('/report/show/{report}', [ReportController::class, 'show'] )->name('report.show');
-    Route::post('/report/message/store/{report}', [ReportController::class ,'reportMessageStore'])->name('report.message.store');
 
+    Route::post('/report/message/store/{report}', [ReportController::class ,'reportMessageStore'])->name('report.message.store');
+    
     
     //Review
     Route::post('/review/store/{book_id}/{user_id}', [ReviewController::class, 'store' ])->name('review.store');
@@ -50,7 +51,8 @@ Route::middleware( 'auth')->group( function(){
 });
 // Guest
 Route::resource('/book', BookController::class)->only([
-    'index','show'
+    'index',
+    'show'
 ]);
 Route::get('/books', [BookController::class , 'search'])->name('books.search');
 Route::get('/', function(){
