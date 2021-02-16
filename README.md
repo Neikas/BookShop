@@ -6,6 +6,10 @@ This is Book Stroe project
 
  **By Neikas**
 
+live on heroku
+
+http://book-shop-neikas.herokuapp.com/book/
+
 ## Installation
 
 ```bash
