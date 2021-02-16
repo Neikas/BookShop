@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Author;
 use App\Models\Genre;
+use App\Models\Author;
 use App\Models\Review;
+use App\Support\Collection;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use App\Http\Requests\CreateBookRequest;
-use Illuminate\Support\Str;
-use App\Support\Collection;
 
 class BookController extends Controller
 {   
@@ -177,6 +178,8 @@ class BookController extends Controller
             $filename =time().'.'.$extension;
             $file->move('uploads/booksCover/', $filename);
 
+            $resizedImage = Image::make( public_path('uploads/booksCover/' . $filename))
+            ->fit(400,400)->save();
         }else {
             $filename = str_replace('uploads/booksCover/', '', $book->picture);
         }
@@ -228,6 +231,13 @@ class BookController extends Controller
         $book->authors()->detach();
         $book->genres()->detach();
         //add delete picture from book if had
+        if($book->picture != 'uploads/booksCover/default.png'){
+            if(File::exists( public_path($book->picture)) )
+            {
+                File::delete(public_path($book->picture));
+            }
+        }
+
         $book->delete();
 
         return redirect()->route('admin.book.index')->with('message', 'Success');

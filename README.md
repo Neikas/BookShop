@@ -55,16 +55,19 @@ Please make sure to update tests as appropriate.
 - [x] users can leave reviews
 - [x] users can rate book
 # User Account
-- [ ] they can change the password
-- [ ] they can change email
+- [x] they can change the password
+- [x] they can change email
 - [x] they can report a book (for example if there are discrepancies on some of the listed books)
 - [x] can upload a book to the listing, then the admin must confirm the book to be listed, then it appears on the landing page and searches
 can manage their books
 - [x] can give a review on a book (stars + comments)
+- [x] can chat to admin about report
 # Admin account
-- [ ] they can change the password
+- [x] they can change the password
 - [x] can reply to user's report
 - [x] can manage and update all the books
+- [x] can replly to user report
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

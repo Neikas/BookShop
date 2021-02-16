@@ -27,17 +27,6 @@ class ReportController extends Controller
         
         return view('user.book.report.index')->with([ 'reports' => $reports ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -61,9 +50,9 @@ class ReportController extends Controller
     }
     public function reportMessageStore(Request $request, Report $report)
     {
-        if( auth()->user()->admin ){
+        $request->validate([ 'message' => 'required' ]);
 
-            $request->validate([ 'message' => 'required' ]);
+        if( auth()->user()->admin ){
 
             ReportMessage::create([
                 'message' => $request->message,
@@ -71,11 +60,8 @@ class ReportController extends Controller
                 'report_id' => $report->id,
                 'is_admin' => auth()->user()->admin
             ]);
-
             return redirect()->route('report.show', [ $report ])->with('message', 'Message set successfuly!');
         }
-
-        $request->validate([ 'message' => 'required' ]);
 
         ReportMessage::create([
             'message' => $request->message,
@@ -94,39 +80,5 @@ class ReportController extends Controller
     public function show(Report $report)
     {
         return view('user.book.report.chat.index')->with('report', $report);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Report $report)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Report $report)
-    {
-        //
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Report $report)
-    {
-        //
     }
 }
