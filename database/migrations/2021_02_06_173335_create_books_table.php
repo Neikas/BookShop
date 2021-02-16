@@ -15,9 +15,7 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('review_id')->nullable();
             $table->foreignId('user_id');
-            $table->foreignId('report_id')->nullable();
             $table->string('title');
             $table->longText('description');
             $table->double('price');

@@ -22,7 +22,6 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            'review_id' => null,
             'user_id' => 2,
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),

@@ -14,27 +14,6 @@ use App\Support\Collection;
 
 class BookController extends Controller
 {   
-    public function search(Request $request)
-    {
-
-        $search = $request->input('search');
-
-        setcookie('search',$search, time()+60*5);
-
-        $books = Book::where('approved', true)
-        ->where( function($query) use ($search) {
-            $query->where('title','LIKE','%'.$search.'%');
-            $query->orWhereHas('authors' ,function($query) use ($search) {
-            $query->where('author', 'LIKE','%'.$search.'%');
-            });
-            })->paginate();
-        
-        session()->flash('search', $request->search);
-
-        return view('guest.book.index')->with('books', $books);
-    }
-
-
     public function indexAdminBookUnapproved()
     {
         $books = Book::paginate();
@@ -56,8 +35,30 @@ class BookController extends Controller
 
     public function index()
     {
+        if(request('search')){
+            $search = request('search');
+            setcookie('search',$search, time()+60*10);
+            session()->flash('search', $search);
+        }
 
-        $books = Book::approved()->latest('id')->paginate();
+        $books = Book::with('authors')
+        ->approved()
+        ->when(
+            request('search'), function($query)
+            {
+                $search = request('search');
+
+                $query->where( function($query) use ($search) 
+                {
+                    $query->where('title','LIKE','%'.$search.'%');
+                    $query->orWhereHas('authors' ,function($query) use ($search) 
+                    {
+                        $query->where('author', 'LIKE','%'.$search.'%');
+                    });
+            })->paginate();
+        })
+        ->latest('id')
+        ->paginate();
 
         return view('guest.book.index')->with('books', $books);
     }

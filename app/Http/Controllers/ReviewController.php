@@ -23,6 +23,6 @@ class ReviewController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->route('book.show');
+        return redirect()->route('book.show', $book);
     }
 }

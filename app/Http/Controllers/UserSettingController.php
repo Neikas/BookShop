@@ -25,7 +25,7 @@ class UserSettingController extends Controller
         return redirect()->route('user.setting.index')->with('wrongPassword', 'Check your old password!');
 
     }
-    public function updateEmail(UserChangeEmailRequest $request)
+    public function updateEmail( UserChangeEmailRequest $request)
     {
         if(Hash::check( $request->input('password') , auth()->user()->password ))
         {

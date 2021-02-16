@@ -39,7 +39,7 @@
                             <h2><a href="{{ route('book.index') }}" style="text-decoration: none;">BookShop</a><h2>
                         </li>
                         <li class="nav-item">
-                                <form method="get" action="{{ route('books.search') }}" style="width: 400px">
+                                <form method="get" action="{{ route('book.index') }}" style="width: 400px">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="input-group pr-1 rounded">

@@ -62,7 +62,6 @@ Route::resource('/book', BookController::class)->only([
     'index',
     'show'
 ]);
-Route::get('/books', [BookController::class , 'search'])->name('books.search');
 Route::get('/', function(){
     return redirect()->route('book.index');
 });
