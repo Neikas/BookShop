@@ -10,7 +10,11 @@
                             <form method="POST" action="{{ route('book.update', $book) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                
+                                @if(session()->has('message'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('message') }}
+                                    </div>
+                                @endif
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">{{ __('Book Title') }} </label>
                                     @if ($errors->has('title'))

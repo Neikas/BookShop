@@ -12,6 +12,13 @@
     </div>
   </div>
 @endif
+@if(session()->has('message'))
+<div class="row justify-content-center">
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+</div>
+@endif
 @foreach ($books->chunk(5) as $chunk)
     <div class="row justify-content-center">
         @foreach ($chunk as $book)

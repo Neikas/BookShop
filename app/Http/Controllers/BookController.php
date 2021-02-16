@@ -112,11 +112,11 @@ class BookController extends Controller
         }
         foreach($genres as $genre)
         {
-            $genreCheck = Genre::where('genre', $genre)->firstOrCreate(['genere' => $genre]);
+            $genreCheck = Genre::where('genre', $genre)->firstOrCreate(['genre' => $genre]);
 
             $genreCheck->books()->attach($book);
         }
-            return redirect()->route('userBook')->with('message', 'Success');
+            return redirect()->route('userBook')->with('message', 'Book was successfully created!');
     }
 
     public function getAllUserBooks()
@@ -208,7 +208,7 @@ class BookController extends Controller
             'picture' => 'uploads/booksCover/'. $filename,
         ]);
 
-        return redirect()->route('book.edit', $book->id);
+        return redirect()->route('book.edit', $book->id)->with('message', 'Book was successfully updated!');
     }
 
     /**

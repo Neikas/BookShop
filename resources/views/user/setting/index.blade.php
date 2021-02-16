@@ -70,11 +70,6 @@
                         {{ session()->get('wrongEmailPassword') }}
                     </div>
                     @endif
-                    @if(session()->has('messageEmail'))
-                    <div class="alert alert-success">
-                        {{ session()->get('messageEmail') }}
-                    </div>
-                    @endif
                     <div class="form-group">
                         <label for="exampleFormControlInput1">{{ __('Password') }} </label>
                         @if ($errors->has('password'))
