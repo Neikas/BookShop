@@ -86,6 +86,9 @@ class BookController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename =time().'.'.$extension;
             $file->move('uploads/booksCover/', $filename);
+
+            $resizedImage = Image::make( public_path('uploads/booksCover/' . $filename))
+            ->fit(400,400)->save();
         }else {
             $filename = 'default.png';
         }
@@ -103,20 +106,14 @@ class BookController extends Controller
 
         foreach($authors as $author)
         {
-            $authorCheck = Author::where('author','=', $author)->first();
-            if ($authorCheck === null)
-            {   
-                $authorCheck = Author::create(['author'=> $author]);
-            }
+            $authorCheck = Author::where('author', $author)->firstOrCreate([ 'author' => $author]);
+
             $authorCheck->books()->attach($book);
         }
         foreach($genres as $genre)
         {
-            $genreCheck = Genre::where('genre','=', $genre)->first();
-            if ($genreCheck === null)
-            {
-                $genreCheck =  Genre::create(['genre'=> $genre]);
-            }
+            $genreCheck = Genre::where('genre', $genre)->firstOrCreate(['genere' => $genre]);
+
             $genreCheck->books()->attach($book);
         }
             return redirect()->route('userBook')->with('message', 'Success');
@@ -170,8 +167,9 @@ class BookController extends Controller
     {
         if($request->hasFile('picture'))
         {
-            if(File::exists(asset( $book->picture))) {
-                File::delete(asset( $book->picture));
+            if(File::exists( public_path($book->picture)) )
+            {
+                File::delete(public_path($book->picture));
             }
             $file = $request->file('picture');
             $extension = $file->getClientOriginalExtension();
@@ -191,31 +189,24 @@ class BookController extends Controller
         $book->genres()->detach();
 
         foreach($authors as $author)
-        {    
-            $authorCheck = Author::where('author','=', $author)->first();
-            
-            if ($authorCheck == null)
-            {   
-                $authorCheck = Author::create(['author'=> $author]);
-            }
+        {   
+            $authorCheck = Author::where('author', $author)->firstOrCreate([ 'author' => $author]);
+
             $authorCheck->books()->attach($book);
         }
         foreach($genres as $genre)
         {
-            $genreCheck = Genre::where('genre','=', $genre)->first();
-            if ($genreCheck == null)
-            {
-                $genreCheck =  Genre::create(['genre'=> $genre]);
-            }
+            $genreCheck = Genre::where('genre', $genre)->firstOrCreate([ 'genre' => $genre]);
+
             $genreCheck->books()->attach($book);
         }
-      
-        $book->title = $request->title;
-        $book->description = $request->description;
-        $book->price = $request->price;
-        $book->picture ='uploads/booksCover/'. $filename; 
-        $book->approved = false;
-        $book->save();
+        
+        $book->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'picture' => 'uploads/booksCover/'. $filename,
+        ]);
 
         return redirect()->route('book.edit', $book->id);
     }
@@ -239,14 +230,6 @@ class BookController extends Controller
         }
 
         $book->delete();
-
         return redirect()->route('admin.book.index')->with('message', 'Success');
     }
-        /**
-     * Display book my id from list
-     *
-     * @param  \App\Models\Book  $book
-     * @param  $id 
-     * @return \Illuminate\Http\Response
-     */
 }
