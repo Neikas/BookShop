@@ -5,11 +5,10 @@
         </div>
         <div class="comment-widgets">
             <!-- Comment Row -->
-                <form method="Post" action="{{ route('review.store', ['book_id' => $book->id, 'user_id' => auth()->user()->id ]) }}"> 
+                <form method="Post" action="{{ route('review.store', ['book' => $book]) }}"> 
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="message">Your rating</label>
                         @csrf
-                        <input type="hidden" name="user_id" value="{{ $book->id }}"/>
                         <div class="col-md-9">
                             <div class="rating">
                              <label>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,20 +34,27 @@ Route::middleware( 'auth')->group( function(){
         'update',
         'edit',
         'destroy'
-    ]);
-
+    ]);    
     Route::get('/book/myBooks', [BookController::class, 'getAllUserBooks'])->name('userBook');
+    
+    //User settings
+    Route::get('user/setting',[ UserSettingController::class, 'index'])->name('user.setting.index');
+    Route::post('user/password/update', [ UserSettingController::class, 'updatePassword'])->name('user.password.update');
+    Route::post('user/email/update', [ UserSettingController::class, 'updateEmail'])->name('user.email.update');
 
+    //reports
     Route::get('/report/index', [ReportController::class, 'index'])->name('report.index');
     Route::post('/report/store/{book_id}', [ReportController::class, 'store'])->name('report.store');
     Route::get('/report/show/{report}', [ReportController::class, 'show'] )->name('report.show');
 
+
+    //Message
     Route::post('/report/message/store/{report}', [ReportController::class ,'reportMessageStore'])->name('report.message.store');
     
     
     //Review
-    Route::post('/review/store/{book_id}/{user_id}', [ReviewController::class, 'store' ])->name('review.store');
-    Route::post('/review/index/{book_id}', [ReviewController::class, 'index' ])->name('review.index');
+    Route::post('/review/store/{book}', [ReviewController::class, 'store' ])->name('review.store');
+    Route::post('/review/index/{book}', [ReviewController::class, 'index' ])->name('review.index');
 
 });
 // Guest
