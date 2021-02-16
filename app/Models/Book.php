@@ -18,6 +18,10 @@ class Book extends Model
     {
         return $query->where('approved', true);
     }
+    public function scopeDiscountedPrice($query)
+    {
+        return  $this->price - (($this->price / 100 ) * $this->discount ) ;
+    }
     public function getAvgRatingAttribute()
     {
         return round( $this->reviews()->average('stars'), 1 );

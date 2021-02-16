@@ -37,8 +37,13 @@
                             {{ $author->author . ' ' }}
                         @endforeach
                     </h5>
-                    <h5 class="card-title"> {{ $book->price }} &euro;</h5>
+                    @if($book->discount)
+                    <h5 class="card-title"> {{ $book->discountedPrice() }} &euro; <s>   {{ $book->price }} &euro; </s></h5>
                     <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
+                    @else
+                    <h5 class="card-title"> {{ $book->discountedPrice() }}</h5>
+                    <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
+                    @endif
                 </div>
             </div>
         @endforeach
