@@ -29,6 +29,7 @@ Route::middleware( 'auth')->group( function(){
         Route::get('/admin/book',[ BookController::class , 'indexAdminBookUnapproved'])->name('admin.book.index');
         Route::get('/admin/book/{book}/{status}',[ BookController::class , 'bookChangeApproved'])->name('admin.book.change.approved');
     });
+    // user
     Route::resource('/book',  BookController::class)->only([
         'store',
         'create',
@@ -38,17 +39,17 @@ Route::middleware( 'auth')->group( function(){
     ]);    
     Route::get('/book/myBooks', [BookController::class, 'getAllUserBooks'])->name('userBook');
     
-    //User settings
+        //User settings
     Route::get('user/setting',[ UserSettingController::class, 'index'])->name('user.setting.index');
     Route::post('user/password/update', [ UserSettingController::class, 'updatePassword'])->name('user.password.update');
     Route::post('user/email/update', [ UserSettingController::class, 'updateEmail'])->name('user.email.update');
-    //reports
+        //reports
     Route::get('/report/index', [ReportController::class, 'index'])->name('report.index');
     Route::post('/report/store/{book_id}', [ReportController::class, 'store'])->name('report.store');
     Route::get('/report/show/{report}', [ReportController::class, 'show'] )->name('report.show');
-    //Message ticket system
+        //Message ticket system
     Route::post('/report/message/store/{report}', [ReportController::class ,'reportMessageStore'])->name('report.message.store');
-    //Review
+        //Review
     Route::post('/review/store/{book}', [ReviewController::class, 'store' ])->name('review.store');
     Route::post('/review/index/{book}', [ReviewController::class, 'index' ])->name('review.index');
 

@@ -58,6 +58,7 @@
             {{-- Modal --}}    
         @endauth
         <div class="row mt-5">
+            
                 @include('guest.book.review.index')  
         </div>
         <div class="row mt-5">

@@ -15,27 +15,10 @@ use App\Http\Requests\CreateBookRequest;
 
 class BookController extends Controller
 {   
-    public function indexAdminBookUnapproved()
-    {
-        $books = Book::paginate();
-
-        return view('admin.book.index')->with('books', $books);
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function bookChangeApproved(Book $book, $status)
-    {
-        $book->update(['approved' => true]);
-
-        return redirect()->route('admin.book.index');
-    }
-
 
     public function index()
     {
+        //Dont have function now
         if(request('search')){
             $search = request('search');
             setcookie('search',$search, time()+60*10);
@@ -232,4 +215,23 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('admin.book.index')->with('message', 'Success');
     }
+
+    public function indexAdminBookUnapproved()
+    {
+        $books = Book::paginate();
+
+        return view('admin.book.index')->with('books', $books);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bookChangeApproved(Book $book, $status)
+    {
+        $book->update(['approved' => true]);
+
+        return redirect()->route('admin.book.index');
+    }
+
 }

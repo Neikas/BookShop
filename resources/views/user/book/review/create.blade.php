@@ -7,7 +7,21 @@
             <!-- Comment Row -->
                 <form method="Post" action="{{ route('review.store', ['book' => $book]) }}"> 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="message">Your rating</label>
+                          @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+                      @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+                  @endif
+                        <label class="col-md-3 control-label" for="message">Your rating stars</label>
                         @csrf
                         <div class="col-md-9">
                             <div class="rating">
@@ -46,7 +60,7 @@
 
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="message">Your message</label>
+                        <label class="col-md-3 control-label" for="message">Your comment</label>
                         <div class="col-md-12">
                         <textarea class="form-control" id="message" name="comment" placeholder="Please enter your feedback here..." rows="5"></textarea>
                         </div>
