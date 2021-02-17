@@ -42,10 +42,17 @@
                                 <form method="get" action="{{ route('book.index') }}" style="width: 400px">
                                     <div class="row">
                                         <div class="col-8">
+                                            @if (Cookie::get('search') !== null)
+                                            <div class="input-group pr-1 rounded">
+                                                <input type="search" name="search" value="{{ Cookie::get('search') }}" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                                aria-describedby="search-addon" />
+                                        </div>
+                                          @else
                                             <div class="input-group pr-1 rounded">
                                                     <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                                                     aria-describedby="search-addon" />
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="col-3">
                                             <button type="submit" class="btn btn-danger" id="search-addon">

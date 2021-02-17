@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\CreateBookRequest;
 
 class BookController extends Controller
@@ -21,8 +22,7 @@ class BookController extends Controller
         //Dont have function now
         if(request('search')){
             $search = request('search');
-            setcookie('search',$search, time()+60*10);
-            session()->flash('search', $search);
+            Cookie::queue('search' ,$search, 2592000);
         }
 
         $books = Book::with('authors')
