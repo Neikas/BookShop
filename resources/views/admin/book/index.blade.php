@@ -62,7 +62,9 @@
         @endforeach
     </div >
     <!-- Delete Warning Modal -->
-
+    <div class="row justify-content-center">
+        {{$books->links() }}
+    </div>
     <!-- End Delete Modal --> 
 @endforeach
 

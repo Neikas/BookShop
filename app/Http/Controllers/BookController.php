@@ -189,6 +189,7 @@ class BookController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'picture' => 'uploads/booksCover/'. $filename,
+            'approved' => false,
         ]);
 
         return redirect()->route('book.edit', $book->id)->with('message', 'Book was successfully updated!');
@@ -218,7 +219,7 @@ class BookController extends Controller
 
     public function indexAdminBookUnapproved()
     {
-        $books = Book::paginate();
+        $books = Book::where('approved', false)->paginate();
 
         return view('admin.book.index')->with('books', $books);
     }

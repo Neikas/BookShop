@@ -28,7 +28,8 @@ class CreateBookRequest extends FormRequest
             'author' => 'required',
             'genre' => 'required',
             'description' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'picutre' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
