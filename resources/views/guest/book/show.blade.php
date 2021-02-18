@@ -59,7 +59,7 @@
         @endauth
         <div class="row mt-5">
             
-                @include('guest.book.review.index')  
+            @include('guest.book.review.index')  
         </div>
         <div class="row mt-5">
 
@@ -68,7 +68,7 @@
             @guest
                     <div class="col-12">
                         <div class="alert alert-danger" role="alert">
-                            Log in or register to leave review!
+                            <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}"> register  </a > to leave review!
                         </div>
                     </div>
             @else

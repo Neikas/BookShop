@@ -94,7 +94,7 @@
                                             {{ __('Books for approval') }}
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('userBook') }}">
+                                    <a class="dropdown-item" href="{{ route('user.book') }}">
                                         {{ __('My books') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('book.create', ) }}">

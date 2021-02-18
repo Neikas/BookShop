@@ -15,8 +15,9 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->string('author');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('book_id')->references('id')->on('books');
+            $table->string('author');
             $table->integer('stars')->nullable();
             $table->string('comment')->nullable();
             $table->timestamps();

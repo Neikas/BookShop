@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Author;
-use App\Models\Review;
-use App\Support\Collection;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
@@ -99,14 +95,7 @@ class BookController extends Controller
 
             $genreCheck->books()->attach($book);
         }
-            return redirect()->route('userBook')->with('message', 'Book was successfully created!');
-    }
-
-    public function getAllUserBooks()
-    {
-        $books = auth()->user()->books()->paginate();
-
-        return view('user.book.index')->with('books', $books);
+            return redirect()->route('user.book')->with('message', 'Book was successfully created!');
     }
     /**
      * Display the specified resource.
@@ -117,7 +106,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $book->loadCount('reviews');
-
+        
         return view('guest.book.show')->with('book', $book);
     }
 
@@ -214,25 +203,12 @@ class BookController extends Controller
         }
 
         $book->delete();
+
         return redirect()->route('admin.book.index')->with('message', 'Success');
-    }
-
-    public function indexAdminBookUnapproved()
-    {
-        $books = Book::where('approved', false)->paginate();
-
-        return view('admin.book.index')->with('books', $books);
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function bookChangeApproved(Book $book, $status)
-    {
-        $book->update(['approved' => true]);
-
-        return redirect()->route('admin.book.index');
-    }
-
 }

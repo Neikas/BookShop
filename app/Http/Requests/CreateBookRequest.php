@@ -24,12 +24,13 @@ class CreateBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'author' => 'required',
-            'genre' => 'required',
-            'description' => 'required',
-            'price' => 'required',
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'genre' => 'required|max:255',
+            'description' => 'required|max:2000',
+            'price' => 'required|numeric',
             'picutre' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'discount' => 'max:100|numeric|min:0'
         ];
     }
 }

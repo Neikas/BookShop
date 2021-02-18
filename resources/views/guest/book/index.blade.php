@@ -41,7 +41,7 @@
                     <h5 class="card-title"> {{ $book->discountedPrice() }} &euro; <s>   {{ $book->price }} &euro; </s></h5>
                     <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
                     @else
-                    <h5 class="card-title"> {{ $book->discountedPrice() }}</h5>
+                    <h5 class="card-title"> {{ $book->discountedPrice() }} &euro;</h5>
                     <a href="{{ route('book.show', [ $book ]) }}" class="btn btn-primary btn-block">Check book</a>
                     @endif
                 </div>

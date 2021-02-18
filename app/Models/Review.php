@@ -12,7 +12,7 @@ class Review extends Model
     protected $perPage = 20;
 
     protected $fillable = [
-        'stars', 'comment' ,'book_id','author'
+        'stars', 'comment' ,'book_id','user_id', 'author'
      ];
 
 

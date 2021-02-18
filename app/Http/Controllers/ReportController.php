@@ -33,19 +33,19 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $book_id)
-    {
-        $book = Book::where('id', $book_id)->firstOrFail();
-
-        $request->validate(['report_text' => 'required']);
-
+    public function store(Request $request, Book $book)
+    {   
+        if(auth()->user()->admin)
+        {
+            return redirect()->route('book.show', [ $book ])->with('message', 'Admin user cant report book!');
+        }
+        $request->validate(['report_text' => 'required' ]);
         $report = Report::create([
-            'book_id' => $book_id,
+            'book_id' => $book->id,
             'user_id' => auth()->id(),
             'report_text' => $request->input('report_text'),
 
         ]);
-
         return redirect()->route('book.show', [ $book ])->with('message', 'Success');
     }
     public function reportMessageStore(Request $request, Report $report)

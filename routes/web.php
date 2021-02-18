@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
+use App\Http\Controllers\User\BookController as UserBookController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserSettingController;
@@ -26,8 +28,8 @@ Auth::routes();
 Route::middleware( 'auth')->group( function(){
     // Admin
     Route::group(['middleware' => 'admin'], function (){
-        Route::get('/admin/book',[ BookController::class , 'indexAdminBookUnapproved'])->name('admin.book.index');
-        Route::get('/admin/book/{book}/{status}',[ BookController::class , 'bookChangeApproved'])->name('admin.book.change.approved');
+        Route::get('/admin/book',[ AdminBookController::class , 'index'])->name('admin.book.index');
+        Route::get('/admin/book/{book}',[ AdminBookController::class , 'approveBook'])->name('admin.book.change.approved');
     });
     // user
     Route::resource('/book',  BookController::class)->only([
@@ -37,15 +39,15 @@ Route::middleware( 'auth')->group( function(){
         'edit',
         'destroy'
     ]);    
-    Route::get('/book/myBooks', [BookController::class, 'getAllUserBooks'])->name('userBook');
+    Route::get('/user/book', [UserBookController::class, 'index'])->name('user.book');
     
         //User settings
     Route::get('user/setting',[ UserSettingController::class, 'index'])->name('user.setting.index');
-    Route::post('user/password/update', [ UserSettingController::class, 'updatePassword'])->name('user.password.update');
-    Route::post('user/email/update', [ UserSettingController::class, 'updateEmail'])->name('user.email.update');
+    Route::post('user/setting/password/update', [ UserSettingController::class, 'updatePassword'])->name('user.password.update');
+    Route::post('user/setting/email/update', [ UserSettingController::class, 'updateEmail'])->name('user.email.update');
         //reports
     Route::get('/report/index', [ReportController::class, 'index'])->name('report.index');
-    Route::post('/report/store/{book_id}', [ReportController::class, 'store'])->name('report.store');
+    Route::post('/report/store/{book}', [ReportController::class, 'store'])->name('report.store');
     Route::get('/report/show/{report}', [ReportController::class, 'show'] )->name('report.show');
         //Message ticket system
     Route::post('/report/message/store/{report}', [ReportController::class ,'reportMessageStore'])->name('report.message.store');
