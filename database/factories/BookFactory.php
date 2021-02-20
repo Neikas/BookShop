@@ -26,7 +26,7 @@ class BookFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'price' => $this->faker->randomDigit,
-            'discount' => 0,
+            'discount' => rand(0, 50),
             'approved' => true,
             'picture' => 'uploads/booksCover/default.png',
         ];

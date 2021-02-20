@@ -13,10 +13,17 @@
                             <div class="col align-self-start">
                                 <h5 >{{ $book->title}}</h5>   
                                 @auth  
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form">
-                                        Report this book
-                                    </button>  
+                                    @if(auth()->user()->admin)
+                                        <a href="{{ route('admin.book.edit', $book ) }}" type="button" class="btn btn-danger" >
+                                            Edit this book
+                                        </a>  
+                                    @else
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form">
+                                            Report this book
+                                        </button>  
+                                    @endif
                                 @endauth
+
                             </div>
                             <div class="col-6 align-self-end">
                                 <div class="d-flex">

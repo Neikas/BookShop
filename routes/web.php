@@ -29,7 +29,9 @@ Route::middleware( 'auth')->group( function(){
     // Admin
     Route::group(['middleware' => 'admin'], function (){
         Route::get('/admin/book',[ AdminBookController::class , 'index'])->name('admin.book.index');
-        Route::get('/admin/book/{book}',[ AdminBookController::class , 'approveBook'])->name('admin.book.change.approved');
+        Route::get('/admin/book/approve/{book}',[ AdminBookController::class , 'approveBook'])->name('admin.book.change.approved');
+        Route::get('admin/book/edit/{book}', [ AdminBookController::class , 'edit'])->name('admin.book.edit');
+        Route::put('admin/book/update/{book}', [ AdminBookController::class , 'update'])->name('admin.book.update');
     });
     // user
     Route::resource('/book',  BookController::class)->only([
@@ -40,7 +42,6 @@ Route::middleware( 'auth')->group( function(){
         'destroy'
     ]);    
     Route::get('/user/book', [UserBookController::class, 'index'])->name('user.book');
-    
         //User settings
     Route::get('user/setting',[ UserSettingController::class, 'index'])->name('user.setting.index');
     Route::post('user/setting/password/update', [ UserSettingController::class, 'updatePassword'])->name('user.password.update');

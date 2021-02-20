@@ -87,7 +87,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if (auth()->user()->admin)
-                                        <a class="dropdown-item" href="{{ route('report.index', ['id'=> Auth::user()->id] ) }}">
+                                        <a class="dropdown-item" href="{{ route('report.index') }}">
                                             {{ __('All reports') }}
                                         </a>
                                         <a class="dropdown-item" href="{{ route('admin.book.index') }}">
@@ -100,9 +100,11 @@
                                     <a class="dropdown-item" href="{{ route('book.create', ) }}">
                                         {{ __('Add book') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('report.index' ) }}">
-                                        {{ __('My reported books') }}
-                                    </a>
+                                    @if(!auth()->user()->admin )
+                                        <a class="dropdown-item" href="{{ route('report.index' ) }}">
+                                            {{ __('My reported books') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('user.setting.index' ) }}">
                                         {{ __('User settings') }}
                                     </a>
