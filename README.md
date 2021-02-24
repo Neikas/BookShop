@@ -30,7 +30,7 @@ password
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
-### TASK 
+### TASK 1
 
 # List of all books
 - [x] books displayed in 5x5 grid
@@ -71,6 +71,21 @@ can manage their books
 - [x] can reply to user's report
 - [x] can manage and update all the books
 - [x] can replly to user report
+
+### Task 2 Books API and Dynamic Elements
+
+# Create Public API
+
+- [] Create an endpoint /api/v1/books which would return the books list (only confirmed books), with pagination done by Laravel standards
+- [] Every book should return those fields: id, title, cover full URL, price, authors as string comma-separated, genres as string comma-separated
+- [] You need to use Laravel API Resources for this
+- []Create an endpoint for a single book /api/v1/books/{id} and show the fields the same as in the list but also add Description field. But you need to use the same Laravel API Resource, just with the condition of when to add the description field or not.
+
+# Post Rating/Review without Page Refresh
+
+- [] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
+- [] For that, choose your own technology that you want: Vue.js, Laravel Livewire. jQuery will do but not recommended.
+- [] If you choose Vue/jQuery, then on the back-end, there should be an API endpoint created to save review/rating (Authentication with Laravel Sanctum) that would return the full book data with reviews/ratings and then you show that data on the page 
 
 
 ## License
