@@ -22,7 +22,7 @@ class GenreFactory extends Factory
     public function definition()
     {
         return [
-            'genre' => $this->faker->name
+            'genre' => $this->faker->word
         ];
     }
 }
