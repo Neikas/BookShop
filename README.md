@@ -76,10 +76,10 @@ can manage their books
 
 # Create Public API
 
-- [] Create an endpoint /api/v1/books which would return the books list (only confirmed books), with pagination done by Laravel standards
-- [] Every book should return those fields: id, title, cover full URL, price, authors as string comma-separated, genres as string comma-separated
-- [] You need to use Laravel API Resources for this
-- [] Create an endpoint for a single book /api/v1/books/{id} and show the fields the same as in the list but also add Description field. But you need to use the same Laravel API Resource, just with the condition of when to add the description field or not.
+- [x] Create an endpoint /api/v1/books which would return the books list (only confirmed books), with pagination done by Laravel standards
+- [x] Every book should return those fields: id, title, cover full URL, price, authors as string comma-separated, genres as string comma-separated
+- [x] You need to use Laravel API Resources for this
+- [x] Create an endpoint for a single book /api/v1/books/{id} and show the fields the same as in the list but also add Description field. But you need to use the same Laravel API Resource, just with the condition of when to add the description field or not.
 
 # Post Rating/Review without Page Refresh
 

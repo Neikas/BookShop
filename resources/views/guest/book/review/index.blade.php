@@ -1,4 +1,4 @@
-<h4 class="card-title">Latest Reviews</h4>
+{{-- <h4 class="card-title">Latest Reviews</h4>
 @foreach ( $book->reviews as $review)
     <div class="col-lg-12">
         <div class="card">
@@ -14,6 +14,8 @@
             </div> <!-- Card -->
         </div>
     </div>
-@endforeach
+@endforeach --}}
 
-
+<div id="app" class="w-100">
+    <reviews-index></reviews-index>
+</div>

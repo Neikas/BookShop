@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\BookController;
+use App\Http\Controllers\Api\v1\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/v1/books/{id?}', [ BookController::class, 'index']);
+Route::get('/v1/reviews',[ReviewController::class, 'index']);
