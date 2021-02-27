@@ -17,5 +17,6 @@
 @endforeach --}}
 
 <div id="app" class="w-100">
-    <reviews-index></reviews-index>
+
+    <reviews-index :book=" {{ json_encode($book) }} " ></reviews-index>
 </div>

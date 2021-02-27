@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/v1/books/{id?}', [ BookController::class, 'index']);
-Route::get('/v1/reviews',[ReviewController::class, 'index']);
+Route::get('/v1/reviews/{book}',[ReviewController::class, 'index']);

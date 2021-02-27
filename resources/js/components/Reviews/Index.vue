@@ -19,14 +19,20 @@
 
 <script>
         export default {
+            props:{
+                book:{
+                    type: Object,
+                    required: true,
+                },
+            },
             data(){
                 return {
-                    reviews: []
-                    }
+                    reviews: [],
+                }
              },
 
             mounted() {
-                axios.get('/api/v1/reviews').then(response => {
+                axios.get(`/api/v1/reviews/${this.book.id}`).then(response => {
                     this.reviews = response.data;
                 });
             },

@@ -1865,6 +1865,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    book: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
       reviews: []
@@ -1873,7 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/v1/reviews').then(function (response) {
+    axios.get("/api/v1/reviews/".concat(this.book.id)).then(function (response) {
       _this.reviews = response.data;
     });
   }
