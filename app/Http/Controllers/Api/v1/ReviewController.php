@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Models\Book;
 use App\Models\Review;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
@@ -13,5 +13,16 @@ class ReviewController extends Controller
     public function index(Book $book)
     {   
         return  ReviewResource::collection( $book->reviews()->get());
+    }
+    public function store(ReviewRequest $request, Book $book)
+    {
+        $review = Review::create([
+            'comment' => $request->comment,
+            'stars' => $request->stars,
+            'user_id' => auth()->id(),
+            'book_id' => $book->id,
+            'author' => auth()->user()->name
+        ]);
+        return ReviewResource::collection($book->reviews()->get());
     }
 }

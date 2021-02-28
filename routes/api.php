@@ -22,3 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/v1/books/{id?}', [ BookController::class, 'index']);
 Route::get('/v1/reviews/{book}',[ReviewController::class, 'index']);
+
+Route::group(['middleware' => 'auth:sanctum'],function(){
+    Route::post('/v1/reviews/store/{book}',[ReviewController::class, 'store']);
+});

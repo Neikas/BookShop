@@ -59,32 +59,18 @@
                 </div>
             </div>  
         </div>
-        @auth   
-            {{-- User report create form Modal --}}
-            @include('user.book.report.create')
-            {{-- Modal --}}    
-        @endauth
-        <div class="row mt-5">
-            
-            @include('guest.book.review.index')  
-        </div>
-        <div class="row mt-5">
+      
+            @auth   
+                {{-- User report create form Modal --}}
+                @include('user.book.report.create')
+                {{-- Modal --}}    
+            @endauth
 
-        </div>
-        <div class="row mt-5 justify-content-center">
-            @guest
-                    <div class="col-12">
-                        <div class="alert alert-danger" role="alert">
-                            <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}"> register  </a > to leave review!
+            <div id="app" >
+                    <div class="row mt-5">
+                        <div class="w-100">
+                            @include('guest.book.review.index')  
                         </div>
                     </div>
-            @else
-            <div class="col-12 md-1 mt-1" >
-                {{-- {{ $book->reviews->links() }} --}}
             </div>
-                @include('user.book.review.create')
-            @endguest
-
-        </div>
-    </div>
 @endsection
