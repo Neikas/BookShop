@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <div id="app" >
         <div class="row">
             <div class="col-4">
                 <img src="{{ asset( $book->picture) }}" style="width:100%; height:450px;" class="card-img-top" alt="...">
@@ -23,28 +24,10 @@
                                         </button>  
                                     @endif
                                 @endauth
-
+                                
+                                
                             </div>
-                            <div class="col-6 align-self-end">
-                                <div class="d-flex">
-                                    <div class="content text-center">
-                                        @if( $book->reviews_count )
-                                        <div class="ratings"> <span class="product-rating">{{ $book->avg_rating }} / 5</span>
-                                            <div class="stars"> 
-                                                @for($i = 0 ; $i < $book->avg_rating;$i++)
-                                                    <i class="fa fa-star"></i>
-                                                @endfor
-                                            </div>
-                                            <div class="rating-text"> out of {{ $book->reviews_count }} reviews</div>
-                                        </div>
-                                        @else
-                                        <div class="ratings">
-                                            No reviews yet
-                                        </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
+                            <reviews-avg-index :book="{{ json_encode($book) }}"></reviews-avg-index>
                         </div>
                     </div>
 
@@ -59,18 +42,17 @@
                 </div>
             </div>  
         </div>
-      
+
+                <div class="row mt-5">
+                    <div class="w-100">
+                        @include('guest.book.review.index')  
+                    </div>
+                </div>
+
             @auth   
                 {{-- User report create form Modal --}}
                 @include('user.book.report.create')
                 {{-- Modal --}}    
             @endauth
-
-            <div id="app" >
-                    <div class="row mt-5">
-                        <div class="w-100">
-                            @include('guest.book.review.index')  
-                        </div>
-                    </div>
-            </div>
+        </div>
 @endsection

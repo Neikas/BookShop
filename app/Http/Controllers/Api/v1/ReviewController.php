@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewRequest;
+use App\Http\Resources\ReviewAvgresource;
 use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
@@ -24,5 +25,10 @@ class ReviewController extends Controller
             'author' => auth()->user()->name
         ]);
         return ReviewResource::collection($book->reviews()->get());
+    }
+    public function getAvg(Book $book)
+    {
+        $book->loadCount('reviews');
+            return new ReviewAvgResource($book);
     }
 }

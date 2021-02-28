@@ -13,7 +13,7 @@ class BookController extends Controller
     {   
         if( $id != null)
         {
-            return  new BookResource(Book::findOrFail($id));
+            return  new BookResource(Book::Approved()->findOrFail($id));
         }
 
         return BookResource::collection( Book::Approved()->paginate());

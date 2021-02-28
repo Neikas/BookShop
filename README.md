@@ -85,7 +85,7 @@ can manage their books
 
 - [] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
 - [] For that, choose your own technology that you want: Vue.js, Laravel Livewire. jQuery will do but not recommended.
-- [] giIf you choose Vue/jQuery, then on the back-end, there should be an API endpoint created to save review/rating (Authentication with Laravel Sanctum) that would return the full book data with reviews/ratings and then you show that data on the page 
+- [] If you choose Vue/jQuery, then on the back-end, there should be an API endpoint created to save review/rating (Authentication with Laravel Sanctum) that would return the full book data with reviews/ratings and then you show that data on the page 
 
 
 ## License
