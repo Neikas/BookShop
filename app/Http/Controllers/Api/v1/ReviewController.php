@@ -6,7 +6,7 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewRequest;
-use App\Http\Resources\ReviewAvgresource;
+use App\Http\Resources\ReviewAvgResource;
 use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
