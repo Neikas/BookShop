@@ -82,7 +82,8 @@
 </template>
 
 <script>
-export default {
+import { bus } from '../../app.js';
+export default { 
     name:'ReviewCreate',
     props:{
       book:{
@@ -109,6 +110,7 @@ export default {
         axios.post(`/api/v1/reviews/store/${this.book.id}`, this.fields)
           .then( ( response ) => {
             this.success = 'Tanks for review!';
+            bus.$emit('updateReviewCount');
             this.$emit('updateIndex');
           }).catch( (error) => {
             if(error.response.status === 422 )

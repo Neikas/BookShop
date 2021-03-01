@@ -18,6 +18,7 @@
 
 
 <script>
+import {bus} from '../../../app.js';
 export default {
     props:{
         book:{
@@ -33,11 +34,16 @@ export default {
         }
     },  
     mounted(){
-        this.getAvgRaview();
+        this.getAvgReview();
 
     },
+    created(){
+        bus.$on('updateReviewCount', (data) =>{
+            this.getAvgReview();
+        });
+    },
     methods:{
-        getAvgRaview(){
+        getAvgReview(){
             axios.get(`/api/v1/reviews/average/${this.book.id}`).then( (response) => {
                 this.reviews = response.data.data;
 

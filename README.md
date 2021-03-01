@@ -11,9 +11,12 @@ live on heroku
 http://book-shop-neikas.herokuapp.com/book/
 
 ## Installation
+Change .env file
 
 ```bash
 composer intall
+npm install
+npm run prod
 php aritsan migrate:fresh --seed
 php artisan serve
 ```

@@ -24,7 +24,6 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
-
 Vue.component('reviews-index', ReviewIndex);
 Vue.component('reviews-avg-index', ReviewAvgIndex);
 /**
@@ -32,6 +31,8 @@ Vue.component('reviews-avg-index', ReviewAvgIndex);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+export const bus = new Vue();
 
 const app = new Vue({
     el: '#app',
