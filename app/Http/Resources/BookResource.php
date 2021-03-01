@@ -14,16 +14,13 @@ class BookResource extends JsonResource
      */
     public function toArray($request)
     {
-        $authors = $this->authors()->get()->implode('author', ',');
-        $genres = $this->genres()->get()->implode('genre', ',');
-        
         return [
             'id' => $this->id,
             'title' => $this->title,
             'price' => url('/').'/'.$this->picture,
-            'description' => $this->when($request->route()->parameter('id'), $this->description),
-            'authors' => $authors,
-            'genres' => $genres,
+            'description' => $this->when($request->route()->parameter('book'), $this->description),
+            'authors' => $this->authors()->get()->implode('author', ','),
+            'genres' => $this->genres()->get()->implode('genre', ','),
         ];
     }
 }

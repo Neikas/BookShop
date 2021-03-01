@@ -9,13 +9,15 @@ use App\Http\Resources\BookResource;
 
 class BookController extends Controller
 {
-    public function index($id = null)
+    public function index()
     {   
-        if( $id != null)
-        {
-            return  new BookResource(Book::Approved()->findOrFail($id));
-        }
+        return BookResource::collection( Book::Approved()->with(['authors', 'genres'])->paginate());
+    }
+    public function show(Book $book)
+    {
+        if(!$book->approved) return abort(404);
 
-        return BookResource::collection( Book::Approved()->paginate());
+        return new BookResource($book);
+        
     }
 }

@@ -1996,6 +1996,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ReviewCreate',
@@ -2012,8 +2020,11 @@ __webpack_require__.r(__webpack_exports__);
         'comment': '',
         'stars': ''
       },
-      errors: {},
-      success: ''
+      errors: {
+        review: ''
+      },
+      success: '',
+      form_submitting: false
     };
   },
   mounted: function mounted() {},
@@ -2021,6 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
     submit_form: function submit_form() {
       var _this = this;
 
+      this.form_submitting = true;
       axios.post("/api/v1/reviews/store/".concat(this.book.id), this.fields).then(function (response) {
         _this.success = 'Tanks for review!';
         _app_js__WEBPACK_IMPORTED_MODULE_0__.bus.$emit('updateReviewCount');
@@ -2030,6 +2042,12 @@ __webpack_require__.r(__webpack_exports__);
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors;
         }
+
+        if (error.response.status === 403) {
+          _this.errors.review = error.response.data.message;
+        }
+
+        _this.form_submitting = false;
       });
     }
   }
@@ -37858,6 +37876,12 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
+              _vm.errors.review
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _c("ul", [_c("li", [_vm._v(_vm._s(_vm.errors.review))])])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _vm.success
                 ? _c("div", { staticClass: "alert alert-success" }, [
                     _vm._v(
@@ -38042,7 +38066,20 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "d-flex justify-content-center" }, [
+                _c("div", { staticClass: "col-6" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-danger btn-block",
+                      attrs: { type: "submit", disabled: _vm.form_submitting }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ])
+              ])
+            ])
           ]
         )
       ])
@@ -38056,22 +38093,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-body text-center" }, [
       _c("h4", { staticClass: "card-title" }, [_vm._v("Leave Rview")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "d-flex justify-content-center" }, [
-        _c("div", { staticClass: "col-6" }, [
-          _c(
-            "button",
-            { staticClass: "btn-danger btn-block", attrs: { type: "submit" } },
-            [_vm._v("Submit")]
-          )
-        ])
-      ])
     ])
   }
 ]

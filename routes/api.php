@@ -20,12 +20,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/v1/books/{id?}', [ BookController::class, 'index']);
+Route::group(['prefix' => 'v1/'],function(){
+    Route::apiResource('books', BookController::class)->only('index', 'show');
 
+    Route::get('reviews/{book}',[ReviewController::class, 'index']);
+    Route::get('reviews/average/{book}', [ReviewController::class, 'getAvg']);
 
-Route::get('/v1/reviews/{book}',[ReviewController::class, 'index']);
-Route::Get('/v1/reviews/average/{book}', [ReviewController::class, 'getAvg']);
-
-Route::group(['middleware' => 'auth:sanctum'],function(){
-    Route::post('/v1/reviews/store/{book}',[ReviewController::class, 'store']);
+    Route::group(['middleware' => 'auth:sanctum'],function(){
+        Route::post('reviews/store/{book}',[ReviewController::class, 'store']);
+    });
 });
+
+
+

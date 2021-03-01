@@ -17,7 +17,11 @@ class ReviewController extends Controller
     }
     public function store(ReviewRequest $request, Book $book)
     {
-        $review = Review::create([
+        if($book->reviews()->get()->contains('user_id', auth()->id() )) 
+        {
+            return response()->json([ 'error' => 404, 'message' =>  'One review per book for same user!' ], 403);
+        }
+        Review::create([
             'comment' => $request->comment,
             'stars' => $request->stars,
             'user_id' => auth()->id(),

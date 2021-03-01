@@ -20,6 +20,12 @@
                                 <li >{{ errors.stars[0] }}</li>
                               </ul>
                           </div>
+
+                          <div v-if="errors.review" class="alert alert-danger">
+                              <ul>
+                                <li >{{ errors.review }}</li>
+                              </ul>
+                          </div>
                       <div v-if="success" class="alert alert-success">
                         {{ success }}
                       </div>
@@ -70,7 +76,9 @@
                     <div class="form-group">
                       <div class="d-flex justify-content-center">
                         <div class="col-6">
-                          <button type="submit" class="btn-danger btn-block">Submit</button>
+                          <button type="submit" class="btn-danger btn-block"
+                            :disabled="form_submitting"
+                          >Submit</button>
                         </div>
                       
                       </div>
@@ -98,8 +106,9 @@ export default {
               'comment':'',
               'stars':'',
             },
-            errors:{},
-            success: ''
+            errors:{ review: ''},
+            success: '',
+            form_submitting: false,
         }
     },
     mounted(){
@@ -107,8 +116,10 @@ export default {
     },
     methods:{
       submit_form(){
+        this.form_submitting = true;
         axios.post(`/api/v1/reviews/store/${this.book.id}`, this.fields)
           .then( ( response ) => {
+            
             this.success = 'Tanks for review!';
             bus.$emit('updateReviewCount');
             this.$emit('updateIndex');
@@ -117,6 +128,11 @@ export default {
             {
               this.errors = error.response.data.errors;
             }
+            if(error.response.status === 403 )
+            {
+              this.errors.review = error.response.data.message;
+            }
+            this.form_submitting = false;
           });
       }
     }
