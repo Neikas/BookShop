@@ -119,10 +119,11 @@ export default {
         this.form_submitting = true;
         axios.post(`/api/v1/reviews/store/${this.book.id}`, this.fields)
           .then( ( response ) => {
-            
+
             this.success = 'Tanks for review!';
             bus.$emit('updateReviewCount');
             this.$emit('updateIndex');
+            this.form_submitting = false;
           }).catch( (error) => {
             if(error.response.status === 422 )
             {

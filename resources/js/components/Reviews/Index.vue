@@ -26,7 +26,7 @@
         <div v-else>
             <div class="col-12 mt-4">
                 <div class="alert alert-danger" role="alert">
-                    <a href="">Log in</a> or <a href=""> register  </a > to leave review!
+                    <a v-bind:href="loginRoute" >Log in</a> or <a v-bind:href="registerRoute" > register  </a > to leave review!
                 </div>
             </div>
         </div>
@@ -43,18 +43,19 @@
                     type: Object,
                     required: true,
                 },
-                login:{
-
-                }
+                login:'',
             },
             data(){
                 return {
                     reviews: [],
-                    errorServer: ''
+                    errorServer: '',
+                    registerRoute: window.location.origin + '/register',
+                    loginRoute: window.location.origin + '/login',
                 }
              },
 
             mounted() {
+                console.log(window.location.origin + '/register');
                 this.getBooks();
             },
             methods:{

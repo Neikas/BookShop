@@ -8,7 +8,7 @@ require('./bootstrap');
 
 import ReviewIndex from './components/Reviews/Index.vue';
 import ReviewAvgIndex from './components/Reviews/Average/Index.vue';
-
+import ShowPassword from './components/User/Register.vue'
 
 window.Vue = require('vue').default;
 
@@ -23,8 +23,8 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-
 Vue.component('reviews-index', ReviewIndex);
+Vue.component('show-password', ShowPassword);
 Vue.component('reviews-avg-index', ReviewAvgIndex);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
