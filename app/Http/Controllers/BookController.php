@@ -40,7 +40,7 @@ class BookController extends Controller
         ->latest('id')
         ->paginate();
 
-        return view('guest.book.index')->with('books', $books);
+        return view('guest.book.index', compact('books'));
     }
         /**
      * Show the form for creating a new resource.
@@ -85,13 +85,13 @@ class BookController extends Controller
 
         foreach($authors as $author)
         {
-            $authorCheck = Author::where('author', $author)->firstOrCreate([ 'author' => $author]);
+            $authorCheck = Author::firstOrCreate([ 'author' => $author]);
 
             $authorCheck->books()->attach($book);
         }
         foreach($genres as $genre)
         {
-            $genreCheck = Genre::where('genre', $genre)->firstOrCreate(['genre' => $genre]);
+            $genreCheck = Genre::firstOrCreate(['genre' => $genre]);
 
             $genreCheck->books()->attach($book);
         }
@@ -107,7 +107,7 @@ class BookController extends Controller
     {
         $book->loadCount('reviews');
         
-        return view('guest.book.show')->with('book', $book);
+        return view('guest.book.show', compact('book'));
     }
 
     /**
@@ -125,7 +125,7 @@ class BookController extends Controller
         $book->authors = $authors;
         $book->genres = $genres;
 
-        return view('user.book.edit')->with('book', $book);
+        return view('user.book.edit', compact('book'));
     }
 
     /**
@@ -162,13 +162,13 @@ class BookController extends Controller
 
         foreach($authors as $author)
         {   
-            $authorCheck = Author::where('author', $author)->firstOrCreate([ 'author' => $author]);
+            $authorCheck = Author::firstOrCreate([ 'author' => $author]);
 
             $authorCheck->books()->attach($book);
         }
         foreach($genres as $genre)
         {
-            $genreCheck = Genre::where('genre', $genre)->firstOrCreate([ 'genre' => $genre]);
+            $genreCheck = Genre::firstOrCreate([ 'genre' => $genre]);
 
             $genreCheck->books()->attach($book);
         }
@@ -206,9 +206,4 @@ class BookController extends Controller
 
         return redirect()->route('admin.book.index')->with('message', 'Success');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 }
