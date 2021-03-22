@@ -17,7 +17,9 @@ Change .env file
 composer intall
 npm install
 npm run prod
-php aritsan migrate:fresh --seed
+cp .env.example .env
+php artisan migrate:fresh --seed
+php artisan key:generate
 php artisan serve
 ```
 ## User
